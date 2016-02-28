@@ -2,4 +2,4 @@ WebApp/gwt*
 WebApp/war/WEB-INF/classes/
 WebApp/war/WEB-INF/lib/
 WebApp/war/codingcareers/
-			
+*.mp
