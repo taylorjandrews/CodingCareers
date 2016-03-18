@@ -1,6 +1,8 @@
 package com.codingcareers.project.client;
 
-public abstract class PageBody {
+import com.google.gwt.user.client.ui.DockPanel;
+
+public abstract class PageBody extends DockPanel implements PageComponent {
 	public void load(){
 	}
 }

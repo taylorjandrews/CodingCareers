@@ -7,4 +7,10 @@ public class CharacterCreationPageBody extends PageBody {
 	private void selectChar(ArrayList<String> choice){
 		return ;
 	}
+
+	@Override
+	public void constructPanel() {
+		// TODO Auto-generated method stub
+		
+	}
 }
