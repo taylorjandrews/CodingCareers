@@ -11,14 +11,16 @@ public class AboutPageBody extends PageBody{
 	public AboutPageBody(){
 		Label welcomeMessage = new Label();
 		welcomeMessage.setText("Welcome to "+ Constants.TITLE);
+		welcomeMessage.addStyleName("welcomeMessage");
 		add(welcomeMessage, DockPanel.NORTH);
 		
 		Label textMessage = new Label();
-		textMessage.setText("There should be some welcome messages in the Constant class files");
+		textMessage.setText(Constants.ABOUT_PAGE_INFO);
+		textMessage.addStyleName("textMessage");
 		add(textMessage, DockPanel.CENTER);
 		
 		Anchor tryItNow = new Anchor("Try it Now!","http://domain.com/index.tml");
-		
+		tryItNow.addStyleName("tryItNow");
 		add(tryItNow, DockPanel.SOUTH);
 	}
 	@Override
