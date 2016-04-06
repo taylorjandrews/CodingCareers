@@ -2,16 +2,16 @@ package codingcareers.webapp.client;
 
 public final class Constants {
 	private Constants() {
-		System.out.println("Constnats constructor should not have been called!");
+		System.out.println("Constants constructor should not have been called!");
 	}
 	
-	public static String TITLE = "Coding Careers";
+	public static final String TITLE = "Coding Careers";
 
 	// HTML ids
-	public static String HEADER_ID = "header";
-	public static String BODY_ID = "body";
-	public static String FOOTER_ID = "footer";
-    public static String CONTENT_ID = "content";
+	public static final String HEADER_ID = "header";
+	public static final String BODY_ID = "body";
+	public static final String FOOTER_ID = "footer";
+    public static final String CONTENT_ID = "content";
 
 	/*
 	public String ABOUT_PAGE_INFO;
@@ -24,15 +24,15 @@ public final class Constants {
 	public String START_LESSON;
 	public String HOVER_LESSON;
 	public String VIEW_LESSONS;
+	*/
 	
 	//PAGE CONSTANT
-	public String ABOUT_PAGE;
-	public String CHARACTER_CREATION_PAGE;
-	public String LANDING_PAGE;
-	public String LOGIN_PAGE;
-	public String PROGRESS_PAGE;
-	public String TASK_PAGE;
-	public String TASK_SELECTION_PAGE;
-	*/
+	public static final String ABOUT_PAGE = "about";
+	public static final String CHARACTER_CREATION_PAGE = "character creation";
+	public static final String LANDING_PAGE = "landing";
+	public static final String LOGIN_PAGE = "login";
+	public static final String PROGRESS_PAGE = "progress";
+	public static final String TASK_PAGE = "task";
+	public static final String TASK_SELECTION_PAGE = "task selection";
 	
 }
