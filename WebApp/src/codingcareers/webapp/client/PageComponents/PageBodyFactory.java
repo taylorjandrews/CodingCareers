@@ -2,42 +2,81 @@ package codingcareers.webapp.client.PageComponents;
 
 import java.util.ArrayList;
 
+import static codingcareers.webapp.client.Constants.*;
+
 public class PageBodyFactory {
-	//TODO constants in Factory
-	private int reward;
+
+	private final int NOT_SELECTED = -1;
+
+    private int reward = NOT_SELECTED;
 	private String instruction;
 	private ArrayList<String> tests;
 	private String solutions;
 	private ArrayList<Integer> progress;
 	private String profile;
 	
-	//TODO buildPageBody
-	public PageBody buildPageBody(String pageType){
-		return new TaskPageBody();
+	//TODO Fill out specific construction for each page
+	public PageBody buildPageBody(String pageType) throws InvalidPageException {
+		PageBody toBuild;
+        switch (pageType) {
+			case ABOUT_PAGE:
+				toBuild =  new AboutPageBody();
+                break;
+			case CHARACTER_CREATION_PAGE:
+                toBuild =  new CharacterCreationPageBody();
+                break;
+            case LANDING_PAGE:
+                toBuild =  new LandingPageBody();
+                break;
+            case LOGIN_PAGE:
+                toBuild =  new LoginPageBody();
+                break;
+            case PROGRESS_PAGE:
+                toBuild =  new ProgressPageBody();
+                break;
+            case TASK_PAGE:
+                toBuild =  new TaskPageBody();
+                break;
+            case TASK_SELECTION_PAGE:
+                toBuild =  new TaskSelectionPageBody();
+                break;
+            default:
+                throw new InvalidPageException("Invalid page type give for construction.");
+		}
+        clearParams();
+        return toBuild;
 	};
-	//TODO
-	public void setRewards(int rewardAmount){
-		return;
+
+	public void setRewards(int reward){
+		this.reward = reward;
 	}
-	//TODO + setInstructions(instructions: String): void
-	public void setInstructions(String instructions){
-		return;
+
+	public void setInstructions(String instruction){
+		this.instruction = instruction;
 	}
-	//TODO + setPreviousSolution(solution: String): void
-	public void setPreviousSolution(String solution){
-		return;
+
+	public void setPreviousSolution(String solutions){
+        this.solutions = solutions;
 	}
-	//TODO + setProgress(completedTasks: ArrayList<Integer>): void
-	public void setProgress(ArrayList<Integer> completedTasks){
-		return;
+
+	public void setProgress(ArrayList<Integer> progress){
+		this.progress = progress;
 	}
-	//TODO + setTestCases(testCases: ArrayList<String>): void
-	public void setTestCases(ArrayList<String> testCases){
-		return;
+
+	public void setTestCases(ArrayList<String> tests){
+        this.tests = tests;
 	}
-	//TODO + setProfile(profile: String): void
+
 	public void setProfile(String profile){
-		return;
+		this.profile = profile;
 	}
+
+    private void clearParams() {
+        reward = NOT_SELECTED;
+        instruction = null;
+        tests = null;
+        progress = null;
+        profile = null;
+    }
 	
 }

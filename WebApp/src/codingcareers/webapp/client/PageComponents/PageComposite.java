@@ -16,11 +16,27 @@ public class PageComposite implements PageComponent {
 
     private PageComponent[] components = new PageComponent[TOTAL_COMPONENTS];
 
-	public PageComposite(PageHeader header, PageBody body, PageFooter footer) {
+	public PageComposite() {
+        return;
+    }
+
+    public PageComposite(PageHeader header, PageBody body, PageFooter footer) {
 		components[HEADER] = header;
         components[BODY] = body;
         components[FOOTER] = footer;
 	}
+
+    public void setPageHeader(PageHeader header) {
+        components[HEADER] = header;
+    }
+
+    public void setPageBody(PageBody body) {
+        components[BODY] = body;
+    }
+
+    public void setPageFooter(PageFooter footer) {
+        components[FOOTER] = footer;
+    }
 
     @Override
     public void load() {
