@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 public abstract class PageBody extends DockPanel implements PageComponent {
 
     public void load() {
-        RootPanel.get(Constants.BODY_ID).add(this);
+        RootPanel bodyPanel = RootPanel.get(Constants.BODY_ID);
+        bodyPanel.clear();
+        bodyPanel.add(this);
 	}
 }
