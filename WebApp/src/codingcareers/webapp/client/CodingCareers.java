@@ -25,7 +25,7 @@ public class CodingCareers implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-      PageBody content = new LoginPageBody();
+      PageBody content = new AboutPageBody();
       PageHeader header = new BasicHeader();
       PageFooter footer = new BasicFooter();
 
