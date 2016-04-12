@@ -27,7 +27,12 @@ public class BasicHeader extends PageHeader {
        aboutBtn.addClickHandler(new ClickHandler() {
    	    public void onClick(ClickEvent event) {
    	        // handle the click event
-   	    	Window.alert("test");
+   	    	
+   	    	if(((Anchor)event.getSource()).getText() == "About"){
+   	    		((Anchor)event.getSource()).setText("Bout");
+   	    	}else{
+   	    		((Anchor)event.getSource()).setText("About");
+   	    	}
    	      }
    	    }); 
        
