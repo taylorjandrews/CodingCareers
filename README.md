@@ -24,13 +24,13 @@ Follow the steps bellow in order to set up a database for use.
 2. Navigate to WebApp/util and open MySQL. If you have not already created
    a database, execute the following commands.
 
-'''
+```
 CREATE DATABASE CodingCareers;
 USE CodingCareers;
-'''
+```
 
 3. Once you are using your desired database execute the following line.
 
-'''
+```
 .\ constructDB.sql
-'''
+```
