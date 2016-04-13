@@ -7,7 +7,7 @@ public class BasicFooter extends PageFooter{
 	public BasicFooter() {
         Label credits = new Label();
         credits.addStyleName("footText");
-        credits.setText("Peoples names");
+        credits.setText("Created by Taylor Andrews, Ian Char, Lauren Mitchell, Alan Moy, and Peilun Zhang");
         add(credits);
     }
 
