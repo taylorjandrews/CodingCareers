@@ -3,6 +3,7 @@ package codingcareers.webapp.client;
 import codingcareers.webapp.client.PageComponents.*;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import org.apache.bcel.classfile.Constant;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -26,6 +27,6 @@ public class CodingCareers implements EntryPoint {
    */
   public void onModuleLoad() {
       Controller controller = Controller.getInstance();
-      controller.loadPage(Constants.TASK_SELECTION_PAGE);
+      controller.loadPage(Constants.ABOUT_PAGE);
   }
 }
