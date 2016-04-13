@@ -1,34 +1,78 @@
-/** Add css rules here for your application. */
-
-
-/** Example rules used by the template application (remove for your app) */
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+.title {
+	float:left;	
+    color: #666;
+    text-align: center;
+    margin-left:3%;
+    text-decoration: none;
+    font-size:250%;
+}
+.credits{
+	float:none;	
+    color: #666;
+    text-align:center;
+    text-decoration: none;
+    font-size:200%;
+}
+.welcomeMessage{
+	padding-top:20px;
+	float:none;	
+    color: #666;
+    text-align:center;
+    margin:auto;
+    text-decoration: none;
+    font-size:350%;
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
+.textMessage{
+	float:none;	
+    color: #666;
+    text-decoration: none;
+    font-size:110%;
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    padding-left: 50px;
 }
 
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
+.tryItNow{
+	margin-left:40%;
+	float:none;	
+    color: #666;
+    text-align: center;
+    text-decoration: none;
+    font-size:280%;
 }
 
-.dialogVPanel {
-  margin: 5px;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-bottom: 2px solid #000000;
 }
 
-.serverResponseLabelError {
-  color: red;
+li {
+    float: right;
 }
 
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
+.navhyperlink  {
+	float:right;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size:130%;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+.gwt-Anchor {
+    cursor: pointer;
 }
