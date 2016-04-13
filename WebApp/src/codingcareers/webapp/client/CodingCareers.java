@@ -26,6 +26,8 @@ public class CodingCareers implements EntryPoint {
    */
   private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
+  private final PageBodyFactory bodyFactory = new PageBodyFactory();
+
   /**
    * This is the entry point method.
    */
