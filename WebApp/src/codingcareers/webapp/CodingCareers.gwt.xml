@@ -26,6 +26,8 @@
   <source path='client'/>
   <source path='shared'/>
 
+  <public path='public'/>
+
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
 </module>
