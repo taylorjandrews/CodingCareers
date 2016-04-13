@@ -6,8 +6,8 @@ public class BasicFooter extends PageFooter{
 	
 	public BasicFooter() {
         Label credits = new Label();
+        credits.addStyleName("footText");
         credits.setText("Peoples names");
-        credits.addStyleName("textMessage");
         add(credits);
     }
 
