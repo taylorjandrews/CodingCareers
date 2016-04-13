@@ -20,12 +20,7 @@ public class CodingCareers implements EntryPoint {
       + "attempting to contact the server. Please check your network "
       + "connection and try again.";
 
-  /**
-   * Create a remote service proxy to talk to the server-side Greeting service.
-   */
-  private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-
-    private PageBodyFactory bodyFactory = new PageBodyFactory();
+  private PageBodyFactory bodyFactory = new PageBodyFactory();
 
   /**
    * This is the entry point method.
@@ -41,18 +36,17 @@ public class CodingCareers implements EntryPoint {
     ScriptInjector.fromUrl(GWT.getModuleBaseForStaticFiles() +
         "skulpt.min.js").setCallback(new Callback() {
       public void onFailure(Object reason) {
-        Window.alert("Script load failed");
+        Window.alert("Script load failed (skulpt)");
       }
       public void onSuccess(Object result) {
-      }
-    }).inject();
-
-    ScriptInjector.fromUrl(GWT.getModuleBaseForStaticFiles() +
-        "skulpt-stdlib.js").setCallback(new Callback() {
-      public void onFailure(Object reason) {
-        Window.alert("Script load failed");
-      }
-      public void onSuccess(Object result) {
+        ScriptInjector.fromUrl(GWT.getModuleBaseForStaticFiles() +
+            "skulpt-stdlib.js").setCallback(new Callback() {
+          public void onFailure(Object reason) {
+            Window.alert("Script load failed (skulpt lib)");
+          }
+          public void onSuccess(Object result) {
+          }
+        }).inject();
       }
     }).inject();
 
