@@ -11,7 +11,7 @@
 }
 .credits{
 	float:none;	
-    color: #666;
+    color: #000000;
     text-align:center;
     text-decoration: none;
     font-size:200%;
@@ -42,12 +42,10 @@
 }
 
 .tryItNow{
-	margin-left:40%;
+	margin-left:45%;
 	float:none;	
     font-family: sans-serif;
-    background: -webkit-linear-gradient(#ff00bf, #b30086);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #000000;
     text-decoration: none;
     font-size:280%;
     text-align: center;
