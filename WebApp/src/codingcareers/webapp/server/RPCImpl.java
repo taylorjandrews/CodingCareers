@@ -11,7 +11,7 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
     private ResultSet callMySQL(String cmd) {
         try {
             Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/CodingCareersTest", "root", "");
+                    "jdbc:mysql://localhost:3306/CodingCareers", "root", "");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(cmd);
             return rs;
