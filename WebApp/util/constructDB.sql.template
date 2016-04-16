@@ -1,0 +1,14 @@
+drop table if exists Task;
+
+create table Task
+    (task_id        INT,
+     instructions   TEXT,
+     code_template  TEXT,
+     test_code      TEXT,
+     primary key (task_id)
+    );
+
+insert into Task (task_id, instructions, test_code)
+values (25,
+        LOAD_FILE('PATH_TO_UTIL_DIR/lessons/lesson25/instructions'),
+        LOAD_FILE('PATH_TO_UTIL_DIR/lessons/lesson25/test.py'));

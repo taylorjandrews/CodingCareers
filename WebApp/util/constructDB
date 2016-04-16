@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# If LOAD_FILE gives a NULL result:
+#   $ chown -R mysql:mysql lessons
+#   mysql> grant file on dbname.* to 'username'@'localhost';
+#   mysql> flush privileges;
+#   mysql> exit;
+#
+#   Then try running this script again. If it doesn't work, check:
+#   $ sudo apparmor_status
+#   if you see /usr/sbin/mysqld or similar under processes in enforce mode,
+#   you'll have to make an apparmor exception:
+#   $ ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable
+#   $ sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+#
+#   Run this script again. If it still doesn't work, I dunno.
+
+if [[ $# -ne 3 ]]; then
+    echo "Usage: $0 db username full_path_to_util_dir"
+    exit 1
+fi
+
+cmds=$(sed "s:PATH_TO_UTIL_DIR:$3:g" constructDB.sql.template)
+echo "$cmds"
+echo "$cmds" | mysql "$1" -u "$2" -p
+
