@@ -14,16 +14,16 @@ public class AboutPageBody extends PageBody{
 	private Anchor tryItNow;
 
 	public AboutPageBody(){
-        addStyleName("aboutBackground   ");
+        addStyleName("aboutBackground");
 		Label welcomeMessage = new Label();
 		welcomeMessage.setText("Welcome to "+ Constants.TITLE);
 		welcomeMessage.addStyleName("welcomeMessage");
 		add(welcomeMessage, DockPanel.NORTH);
 
-		Label textMessage = new Label();
-		textMessage.setText(Constants.ABOUT_PAGE_INFO);
-		textMessage.addStyleName("textMessage");
-		add(textMessage, DockPanel.CENTER);
+		Label aboutMessage = new Label();
+		aboutMessage.setText(Constants.ABOUT_PAGE_INFO);
+		aboutMessage.addStyleName("aboutMessage");
+		add(aboutMessage, DockPanel.CENTER);
 
 		tryItNow = new Anchor("Try it Now!");
 		tryItNow.addStyleName("tryItNow");
