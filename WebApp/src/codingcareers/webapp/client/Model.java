@@ -1,38 +1,41 @@
 package codingcareers.webapp.client;
 
-import java.util.ArrayList;
+import codingcareers.webapp.client.RPC;
+import codingcareers.webapp.client.RPCAsync;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import codingcareers.webapp.shared.Constants;
 
-public class Model{
-	//TODO: - taskMan: TaskManager
-	//		- userMan: UserManager
-	private TaskManager taskMan;
-	private UserManager userMan;
-	
-	//TODO: + lookup(val: String): String
-	public String lookup(String val){
-		return "lookup";
-	}
-	
-	//TODO: + lookupUser(uname: String): String
-	public String lookupUser(String uname){
-		return "lookupUser";
-	}
-	//TODO: + createUser(uname:String, pword:String): String
-	public String createUser(String uname, String pword){
-		return "CreateUser";
-	}
-	//TODO: + updateProgress(progress: String):void
-	public void updateProgress(String progress){
-		return;
-	}
-	//TODO: + lookupTaskInfo(taskID: int): ArrayList<String>
-	public ArrayList<String> lookupTaskInfo(int taskID){
-		ArrayList<String> taskInfo = null;
-		return taskInfo;
-	}
-	//TODO: + selectChar(choices: ArrayList<String>): String
-	public String selectChar(ArrayList<String> choice){
-		return "selectChar";
-	}
+public class Model {
+    private static final RPCAsync rpc = GWT.create(RPC.class);
 
+    public static void lookup(String val,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(val, callback);
+    }
+
+    public static void lookupUser(String uname,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.LOOKUP_USER + uname, callback);
+    }
+
+    public static void createUser(String uname, String pwd,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.CREATE_USER + uname + pwd, callback);
+    }
+
+    public static void updateProgress(String progress,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.UPDATE_PROGRESS + progress, callback);
+    }
+
+    public static void lookupTaskInfo(int taskID,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.LOOKUP_TASK_INFO + String.valueOf(taskID), callback);
+    }
+
+    public static void selectChar(String choice,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.SELECT_CHARACTER + choice, callback);
+    }
 }
