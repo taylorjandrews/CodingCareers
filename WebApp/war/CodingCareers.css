@@ -1,6 +1,9 @@
 .title {
 	float:left;	
-    color: #666;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(#ff00bf, #b30086);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-align: center;
     margin-left:3%;
     text-decoration: none;
@@ -16,31 +19,38 @@
 .welcomeMessage{
 	padding-top:20px;
 	float:none;	
-    color: #222;
-    text-align:center;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(#ff00bf, #b30086);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin:auto;
     text-decoration: none;
-    font-size:350%;
+    font-size:500%;
+    text-align:center;
 }
 
-.textMessage{
+.aboutMessage{
 	float:none;	
-    color: #666;
+    font-family: sans-serif;
+    color: #000000;
     text-decoration: none;
-    font-size:110%;
-    padding-top: 20px;
-    padding-right: 50px;
-    padding-bottom: 10px;
-    padding-left: 50px;
+    font-size:210%;
+    padding-top: 30px;
+    padding-right: 200px;
+    padding-bottom: 30px;
+    padding-left: 200px;
 }
 
 .tryItNow{
 	margin-left:40%;
 	float:none;	
-    color: #666;
-    text-align: center;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(#ff00bf, #b30086);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-decoration: none;
     font-size:280%;
+    text-align: center;
 }
 
 ul {
