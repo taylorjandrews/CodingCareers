@@ -12,6 +12,7 @@ public class BasicHeader extends PageHeader {
 	private Anchor lessonBtn;
 	private Anchor profileBtn;
 	private Anchor loginBtn;
+	private boolean isLoggedIn;
 
 	public BasicHeader() {
        
@@ -28,6 +29,7 @@ public class BasicHeader extends PageHeader {
        add(profileBtn);
        add(loginBtn);
 
+        setLoginState(false);
        
 	}
 	public Anchor generateLabel(String text){
@@ -38,8 +40,14 @@ public class BasicHeader extends PageHeader {
 	}
 	@Override
 	public void setLoginState(boolean loggedIn) {
-		// STUB
-		return;
+		if (loggedIn) {
+			loginBtn.setText("Logout");
+            profileBtn.setVisible(true);
+		} else {
+			loginBtn.setText("Login");
+            profileBtn.setVisible(false);
+		}
+		isLoggedIn = loggedIn;
 	}
 
 	@Override
@@ -64,13 +72,17 @@ public class BasicHeader extends PageHeader {
 
 		profileBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Controller.getInstance().loadPage(Constants.PROGRESS_PAGE);
+				Controller.getInstance().loadPage(Constants.PROFILE_PAGE);
 			}
 		});
 
 		loginBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Controller.getInstance().loadPage(Constants.LOGIN_PAGE);
+				if (isLoggedIn) {
+					Controller.getInstance().logout();
+				} else {
+					Controller.getInstance().loadPage(Constants.LOGIN_PAGE);
+				}
 			}
 		});
     }

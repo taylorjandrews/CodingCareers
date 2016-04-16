@@ -8,7 +8,9 @@ public abstract class PageHeader extends HorizontalPanel implements PageComponen
 
 	//TODO PageHeader Load()
 	public void load() {
-        RootPanel.get(Constants.HEADER_ID).add(this);
+        RootPanel headerPanel = RootPanel.get(Constants.HEADER_ID);
+		headerPanel.clear();
+		headerPanel.add(this);
     }
 	
 	//TODO + setLoginState(loggedIn: boolean): void

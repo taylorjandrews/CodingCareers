@@ -8,6 +8,9 @@ import org.json.simple.JSONObject;
 
 public class RPCImpl extends RemoteServiceServlet implements RPC {
 
+    private final int USERNAME_INDEX = 0;
+    private final int PASSWORD_INDEX = 1;
+
     private ResultSet callMySQL(String cmd) {
         try {
             Connection conn = DriverManager.getConnection(
@@ -38,23 +41,46 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         return "";
     }
 
-    private boolean matchesPrefix(String cmd, String prefix) {
-        return cmd.length() >= prefix.length() &&
-            cmd.substring(0, prefix.length()).equals(prefix);
-    }
-
-    private String getParam(String cmd, String prefix) {
-        if(matchesPrefix(cmd, prefix)) {
-            return cmd.substring(prefix.length(), cmd.length());
+    private String lookupUser(String credentials) {
+        // Parse user and password
+        String[] args = credentials.split(" ");
+        String cmd = "SELECT user_id"
+                + "FROM User"
+                + "WHERE username = " + args[USERNAME_INDEX] + " AND password = " + args[PASSWORD_INDEX];
+        ResultSet rs = callMySQL(cmd);
+        JSONObject obj = new JSONObject();
+        try {
+            if(rs.first()) {
+                obj.put("user_id", rs.getString(1));
+                obj.put("username", rs.getString(2));
+                return obj.toString();
+            }
+        } catch(SQLException e) {
+            return "";
         }
-        return null;
+        return "";
+
     }
 
     public String invokeServer(String cmd) {
-        String param = getParam(cmd, Constants.LOOKUP_TASK_INFO);
-        if(param != null) {
-            return lookupTaskInfo(param);
+        String[] args = cmd.split("-", 2);
+        String command;
+        String params;
+
+        try {
+            command = args[0];
+            params = args[1];
+        } catch (IndexOutOfBoundsException e) {
+            return "";
         }
-        return "";
+
+        switch (command) {
+            case Constants.LOOKUP_TASK_INFO:
+                return lookupTaskInfo(params);
+            case Constants.LOOKUP_USER:
+                return lookupUser(params);
+            default:
+                return "";
+        }
     }
 }
