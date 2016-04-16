@@ -3,18 +3,26 @@ package codingcareers.webapp.client;
 import java.util.ArrayList;
 
 import codingcareers.webapp.client.PageComponents.*;
+import com.google.gwt.core.client.GWT;
+import codingcareers.webapp.client.RPC;
+import codingcareers.webapp.client.RPCAsync;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class Controller{
-	private static PageComposite view;
-	private static Model model;
-	private static CodeInterpreter interpreter;
-	private static PageBodyFactory bodyFactory;
+    private static PageComposite view;
+    private static CodeInterpreter interpreter;
+    private static PageBodyFactory bodyFactory;
     private static History history;
-
+    private final RPCAsync rpc = GWT.create(RPC.class);
     private static Controller instance;
+
+    private native void log(String s) /*-{
+        console.log(s);
+    }-*/;
 
     private Controller() {
         //TODO: Iniditialize model and interpreter
@@ -22,6 +30,7 @@ public class Controller{
 
         // Initialize history information
         history = new History();
+        // TODO prevent double page loading
         history.addValueChangeHandler(new ValueChangeHandler<String>() {
             @Override
             public void onValueChange(ValueChangeEvent<String> event) {
@@ -58,6 +67,7 @@ public class Controller{
      */
 	public void loadPage(String pageType)
 	{
+        log("loadPage" + pageType);
 		PageBody content;
         // TODO: Set page body information for the builder based on known information of controller
 		try {
@@ -76,11 +86,21 @@ public class Controller{
 		view.load();
 	}
 
-    public void loadTaskPage(int taskID) {
+    public void loadTaskPage(final int taskID) {
         //TODO: fetch task information from database and load it into bodyFactor
+        log("loadTaskPage" + String.valueOf(taskID));
 
-        loadPage(Constants.TASK_PAGE);
-        history.newItem(Constants.TASK_PAGE + String.valueOf(taskID));
+        rpc.invokeServer("", new AsyncCallback<String>() {
+            public void onFailure(Throwable caught) {
+                Window.alert("Failed to get tests from server");
+            }
+            public void onSuccess(String tests) {
+                bodyFactory.setInstructions(tests);
+                bodyFactory.setTestCases(tests);
+                loadPage(Constants.TASK_PAGE);
+                history.newItem(Constants.TASK_PAGE + String.valueOf(taskID));
+            }
+        });
     }
 
     /*

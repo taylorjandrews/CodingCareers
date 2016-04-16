@@ -9,8 +9,8 @@ public class PageBodyFactory {
 	private final int NOT_SELECTED = -1;
 
     private int reward = NOT_SELECTED;
-	private String instruction;
-	private ArrayList<String> tests;
+	private String instructions;
+	private String tests;
 	private String solutions;
 	private ArrayList<Integer> progress;
 	private String profile;
@@ -35,7 +35,7 @@ public class PageBodyFactory {
                 toBuild =  new ProgressPageBody();
                 break;
             case TASK_PAGE:
-                toBuild =  new TaskPageBody();
+                toBuild =  new TaskPageBody(instructions, tests);
                 break;
             case TASK_SELECTION_PAGE:
                 toBuild =  new TaskSelectionPageBody();
@@ -51,8 +51,8 @@ public class PageBodyFactory {
 		this.reward = reward;
 	}
 
-	public void setInstructions(String instruction){
-		this.instruction = instruction;
+	public void setInstructions(String instructions){
+		this.instructions = instructions;
 	}
 
 	public void setPreviousSolution(String solutions){
@@ -63,7 +63,7 @@ public class PageBodyFactory {
 		this.progress = progress;
 	}
 
-	public void setTestCases(ArrayList<String> tests){
+	public void setTestCases(String tests){
         this.tests = tests;
 	}
 
@@ -73,7 +73,7 @@ public class PageBodyFactory {
 
     private void clearParams() {
         reward = NOT_SELECTED;
-        instruction = null;
+        instructions = null;
         tests = null;
         progress = null;
         profile = null;

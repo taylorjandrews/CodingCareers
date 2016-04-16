@@ -27,9 +27,6 @@ public class CodingCareers implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-    Controller controller = Controller.getInstance();
-    controller.loadPage(Constants.ABOUT_PAGE);
-
     ScriptInjector.fromUrl(GWT.getModuleBaseForStaticFiles() +
         "skulpt.min.js").setCallback(new Callback() {
       public void onFailure(Object reason) {
@@ -42,18 +39,12 @@ public class CodingCareers implements EntryPoint {
             Window.alert("Script load failed (skulpt lib)");
           }
           public void onSuccess(Object result) {
+              Controller controller = Controller.getInstance();
+              controller.loadPage(Constants.ABOUT_PAGE);
           }
         }).inject();
       }
     }).inject();
 
-    PageBody content;
-    try {
-      content = bodyFactory.buildPageBody(Constants.TASK_PAGE);
-    } catch(InvalidPageException e) {
-      System.out.println("Exception thrown:" + e);
-      return;
-    }
-    PageCompositeFlyweightFactory.getInstance().buildPage(content).load();
   }
 }

@@ -1,8 +1,6 @@
 package codingcareers.webapp.client.PageComponents;
 
 import java.util.ArrayList;
-import codingcareers.webapp.client.RPC;
-import codingcareers.webapp.client.RPCAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.core.client.Callback;
@@ -16,7 +14,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import codingcareers.webapp.client.ace.*;
@@ -28,11 +25,7 @@ public class TaskPageBody extends PageBody {
 	private final TextArea outputBox;
 	private final Button codeSubmit;
 
-	private final RPCAsync rpc = GWT.create(RPC.class);
-
-	private String tests = null;
-
-	private static boolean firstRun = true;
+	private String tests;
 
 	// TODO randomly generate this on first use
 	private static final String PY_TEST_PREFIX = "nf328ijask";
@@ -104,18 +97,8 @@ public class TaskPageBody extends PageBody {
 		runWithPyTests(editor.getText(), tests);
 	}
 
-	// Eventually setting tests will be done in the controller/factory, so this
-	// doesn't have to be fast.
 	private void run() {
-		rpc.invokeServer("", new AsyncCallback<String>() {
-			public void onFailure(Throwable caught) {
-				Window.alert("Failed to get tests from server");
-			}
-
-			public void onSuccess(String tests) {
-				runWithCodeBox(tests);
-			}
-		});
+		runWithCodeBox(tests);
 	}
 
 	private static void loadCSS(String url) {
@@ -129,7 +112,9 @@ public class TaskPageBody extends PageBody {
 		$doc.getElementsByTagName("head")[0].appendChild(elem);
 	}-*/;
 
-	public TaskPageBody() {
+	public TaskPageBody(String instructions, String tests) {
+		this.tests = tests;
+
 		instructionBox = new TextArea();
 		editor = new AceEditor();
 		outputBox = new TextArea();
@@ -143,16 +128,16 @@ public class TaskPageBody extends PageBody {
 		editor.setHeight("410px");
 		outputBox.setHeight("400px");
 
+		instructionBox.setText(instructions);
+
 		codeSubmit.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				run();
 			}
 		});
 
-		instructionBox.setText("Write a function called 'f' that takes one integer parameter n and returns n factorial");
-	
-		VerticalPanel instructions = new VerticalPanel();
-		instructions.add(instructionBox);
+		VerticalPanel instructionPanel = new VerticalPanel();
+		instructionPanel.add(instructionBox);
 
 		VerticalPanel code = new VerticalPanel();
 		code.add(editor);
@@ -161,7 +146,7 @@ public class TaskPageBody extends PageBody {
 		output.add(outputBox);
 		output.add(codeSubmit);
 
-		add(instructions, DockPanel.WEST);
+		add(instructionPanel, DockPanel.WEST);
 		add(code, DockPanel.CENTER);
 		add(output, DockPanel.EAST);
 
@@ -175,12 +160,8 @@ public class TaskPageBody extends PageBody {
 				" else:\n" +
 				"  return f(n - 1) + f(n - 2)\n");
 
-		if(firstRun) {
-			exportOutf();
-			exportClearOutput();
-			firstRun = false;
-		}
-
+		exportOutf();
+		exportClearOutput();
 	}
 	
 	//TODO setInstructions
