@@ -27,8 +27,27 @@ public class TaskPageBody extends PageBody {
 
 	private String tests;
 
+	private static String py_test_prelude =
+		"class CodingCareers__():\n" +
+		"    def __init__(self):\n" +
+		"        self.correct = 0\n" +
+		"        self.total = 0\n" +
+		"    def test_pass(self):\n" +
+		"        self.correct += 1\n" +
+		"        self.total += 1\n" +
+		"    def test_fail(self):\n" +
+		"        self.total += 1\n" +
+		"    def expect(self, b):\n" +
+		"        if b:\n" +
+		"            self.test_pass()\n" +
+		"        else:\n" +
+		"            self.test_fail()\n" +
+		"    def report(self):\n" +
+		"        print('{}{}/{}'.format(PY_TEST_PRINT_PREFIX, self.correct, self.total))\n\n";
+
+
 	// TODO randomly generate this on first use
-	private static final String PY_TEST_PREFIX = "nf328ijask";
+	private static final String PY_TEST_PRINT_PREFIX = "nf328ijask";
 
 	// TODO Move all interpreter stuff to the Controller as in class diagram
 
@@ -38,10 +57,10 @@ public class TaskPageBody extends PageBody {
 	// strategy pattern if implemented)
 	public void outf(String text) {
 		String appendOutput = "";
-		if(text.length() >= PY_TEST_PREFIX.length()) {
-			// Assume any use of PY_TEST_PREFIX will contain additional text. If this
+		if(text.length() >= PY_TEST_PRINT_PREFIX.length()) {
+			// Assume any use of PY_TEST_PRINT_PREFIX will contain additional text. If this
 			// is not the case, the tests have provided no information.
-			String result = text.substring(PY_TEST_PREFIX.length(), text.length());
+			String result = text.substring(PY_TEST_PRINT_PREFIX.length(), text.length());
 			appendOutput = "==============================\n" + result;
 			// TODO parse result and send to server
 		} else {
@@ -89,7 +108,9 @@ public class TaskPageBody extends PageBody {
 	}-*/;
 
 	private void runWithPyTests(String prog, String tests) {
-		String code = prog + "\nPY_TEST_PREFIX = '" + PY_TEST_PREFIX + "'\n" + tests;
+		String code = prog +
+			"\n\nPY_TEST_PRINT_PREFIX = '" + PY_TEST_PRINT_PREFIX + "'\n" +
+			py_test_prelude + tests;
 		runCode(code);
 	}
 
