@@ -82,15 +82,14 @@ public class TaskPageBody extends PageBody {
 			return Sk.importMainWithBody("<stdin>", false, prog, true);
 		});
 		myPromise.then(function(mod) {
-			console.log('success');
+			console.log('code run successfully');
 		}, function(err) {
 			console.log(err);
-			console.log(err.toString());
 		});
 	}-*/;
 
 	private void runWithPyTests(String prog, String tests) {
-		String code = prog + "\n\nPY_TEST_PREFIX = '" + PY_TEST_PREFIX + "'\n\n" + tests;
+		String code = prog + "\nPY_TEST_PREFIX = '" + PY_TEST_PREFIX + "'\n" + tests;
 		runCode(code);
 	}
 
