@@ -35,5 +35,11 @@ public final class Constants {
 	public static final String PROGRESS_PAGE = "progress";
 	public static final String TASK_PAGE = "task";
 	public static final String TASK_SELECTION_PAGE = "task selection";
-	
+
+	// Model/Database constants
+	public static final String LOOKUP_USER = "model lookupuser";
+	public static final String CREATE_USER = "model createuser";
+	public static final String UPDATE_PROGRESS = "model updateprogress";
+	public static final String LOOKUP_TASK_INFO = "model lookuptaskinfo";
+	public static final String SELECT_CHARACTER = "model selectcharacter";
 }

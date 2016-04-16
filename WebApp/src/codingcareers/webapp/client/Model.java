@@ -4,7 +4,7 @@ import codingcareers.webapp.client.RPC;
 import codingcareers.webapp.client.RPCAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import codingcareers.webapp.shared.Constants;
+import codingcareers.webapp.client.Constants;
 
 public class Model {
     private static final RPCAsync rpc = GWT.create(RPC.class);

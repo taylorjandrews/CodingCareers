@@ -58,6 +58,11 @@ public class Controller {
         return instance;
     }
 
+    private native String getJSONVal(String obj, String key) /*-{
+        var obj = JSON.parse(obj);
+        return obj[key];
+    }-*/;
+
     /*
         NOTE: This method should not be directly used if going to a task page. For all other pages it is fine.
      */
@@ -87,12 +92,17 @@ public class Controller {
         log("loadTaskPage" + String.valueOf(taskID));
 
         Model.lookupTaskInfo(taskID, new AsyncCallback<String>() {
-        rpc.invokeServer("", new AsyncCallback<String>() {
             public void onFailure(Throwable caught) {
                 Window.alert("Failed to load task information");
             }
-            public void onSuccess(String results) {
-                bodyFactory.setInstructions(results);
+            public void onSuccess(String result) {
+                // TODO parse result for instructions, tasks, last attempt,
+                // code template, etc.
+                String instructions = getJSONVal(result, "instructions");
+                bodyFactory.setInstructions(instructions);
+                String tests = getJSONVal(result, "test_code");
+                bodyFactory.setTestCases(tests);
+
                 loadPage(Constants.TASK_PAGE);
                 history.newItem(Constants.TASK_PAGE + String.valueOf(taskID));
             }
