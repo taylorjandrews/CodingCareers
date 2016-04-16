@@ -19,18 +19,25 @@ launch in browser.
 ## Set up database
 Follow the steps bellow in order to set up a database for use.
 
+
 1. Make sure you have MySQL installed and working correctly.
 
-2. Navigate to WebApp/util and open MySQL. If you have not already created
-   a database, execute the following commands.
+2. Navigate to WebApp/util. If you have not already created a database, open
+   MySQL and execute the following command:
 
 ```
 CREATE DATABASE CodingCareers;
-USE CodingCareers;
+exit
 ```
 
-3. Once you are using your desired database execute the following line.
-
+3. Execute the command:
 ```
-.\ constructDB.sql
+./constructDB dbname username full_path_to_util_dir
 ```
+e.g.
+```
+./constructDB CodingCareers root /home/user/4448/CodingCareers/WebApp/util
+```
+Do not include a / at the end of the util path. If the table in the database
+contains null entries for task instructinos and test code, follow the steps in
+constructDB to resolve permission errors.
