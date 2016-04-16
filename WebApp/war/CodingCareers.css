@@ -1,6 +1,6 @@
 .title {
 	float:left;	
-    color: #666;
+    color: #00FFFF;
     text-align: center;
     margin-left:3%;
     text-decoration: none;
@@ -21,6 +21,7 @@
     margin:auto;
     text-decoration: none;
     font-size:350%;
+		
 }
 
 .textMessage{
@@ -32,6 +33,9 @@
     padding-right: 50px;
     padding-bottom: 10px;
     padding-left: 50px;
+
+		/*background-image:url(../images/aboutPageBackground.jpg); */
+		
 }
 
 .tryItNow{
@@ -84,4 +88,12 @@ li a.active {
   padding: 1rem;
   background-color: #efefef;
   text-align: center;
+}
+
+.aboutBackground {
+	background-image:url(../images/aboutPageBackground.jpg);
+	background-size: cover;
+	width:100%;
+	height:580px;
+	
 }

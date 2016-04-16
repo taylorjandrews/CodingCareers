@@ -14,6 +14,7 @@ public class AboutPageBody extends PageBody{
 	private Anchor tryItNow;
 
 	public AboutPageBody(){
+        addStyleName("aboutBackground   ");
 		Label welcomeMessage = new Label();
 		welcomeMessage.setText("Welcome to "+ Constants.TITLE);
 		welcomeMessage.addStyleName("welcomeMessage");
