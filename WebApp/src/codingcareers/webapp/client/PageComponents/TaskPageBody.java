@@ -165,18 +165,19 @@ public class TaskPageBody extends PageBody {
 		add(code, DockPanel.CENTER);
 		add(output, DockPanel.EAST);
 
+		editor.startEditor();
+		editor.setMode(AceEditorMode.PYTHON);
+		editor.setAutocompleteEnabled(true);
+		editor.setText(
+				"def f(n):\n" +
+				" if n < 2:\n" +
+				"  return n\n" +
+				" else:\n" +
+				"  return f(n - 1) + f(n - 2)\n");
+
 		if(firstRun) {
 			exportOutf();
 			exportClearOutput();
-			editor.startEditor();
-			editor.setMode(AceEditorMode.PYTHON);
-			editor.setAutocompleteEnabled(true);
-			editor.setText(
-					"def f(n):\n" +
-					" if n < 2:\n" +
-					"  return n\n" +
-					" else:\n" +
-					"  return f(n - 1) + f(n - 2)\n");
 			firstRun = false;
 		}
 
