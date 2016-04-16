@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
 # If LOAD_FILE gives a NULL result:
-#   $ chown -R mysql:mysql lessons
 #   mysql> grant file on dbname.* to 'username'@'localhost';
 #   mysql> flush privileges;
 #   mysql> exit;
