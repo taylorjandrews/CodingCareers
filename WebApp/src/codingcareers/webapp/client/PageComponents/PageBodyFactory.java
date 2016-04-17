@@ -1,5 +1,7 @@
 package codingcareers.webapp.client.PageComponents;
 
+import codingcareers.webapp.client.User;
+
 import java.util.ArrayList;
 
 import static codingcareers.webapp.client.Constants.*;
@@ -13,7 +15,7 @@ public class PageBodyFactory {
 	private String tests;
 	private String solutions;
 	private ArrayList<Integer> progress;
-	private String profile;
+	private User user;
 	
 	//TODO Fill out specific construction for each page
 	public PageBody buildPageBody(String pageType) throws InvalidPageException {
@@ -39,6 +41,13 @@ public class PageBodyFactory {
                 break;
             case TASK_SELECTION_PAGE:
                 toBuild =  new TaskSelectionPageBody();
+                break;
+            case PROFILE_PAGE:
+                ProfilePageBody body = new ProfilePageBody();
+                if (user != null) {
+                    body.setUser(user);
+                }
+                toBuild = body;
                 break;
             default:
                 throw new InvalidPageException("Invalid page type give for construction.");
@@ -67,8 +76,8 @@ public class PageBodyFactory {
         this.tests = tests;
 	}
 
-	public void setProfile(String profile){
-		this.profile = profile;
+	public void setUser(User user){
+		this.user = user;
 	}
 
     private void clearParams() {
@@ -76,7 +85,7 @@ public class PageBodyFactory {
         instructions = null;
         tests = null;
         progress = null;
-        profile = null;
+        user = null;
     }
 	
 }

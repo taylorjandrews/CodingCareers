@@ -25,5 +25,11 @@ public class PageCompositeFlyweightFactory {
         return pageShell;
     }
 
+    public void setLoggedInStatus(boolean loggedIn) {
+        BasicHeader header = new BasicHeader();
+        header.setLoginState(loggedIn);
+        pageShell.setPageHeader(header);
+    }
+
 
 }

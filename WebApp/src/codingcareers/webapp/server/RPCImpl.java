@@ -2,11 +2,15 @@ package codingcareers.webapp.server;
 
 import codingcareers.webapp.client.Constants;
 import codingcareers.webapp.client.RPC;
+import java.lang.Exception;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.sql.*;
 import org.json.simple.JSONObject;
 
 public class RPCImpl extends RemoteServiceServlet implements RPC {
+
+    private final int USERNAME_INDEX = 0;
+    private final int PASSWORD_INDEX = 1;
 
     private ResultSet callMySQL(String cmd) {
         try {
@@ -38,23 +42,50 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         return "";
     }
 
-    private boolean matchesPrefix(String cmd, String prefix) {
-        return cmd.length() >= prefix.length() &&
-            cmd.substring(0, prefix.length()).equals(prefix);
+    private String lookupUser(String credentials) throws Exception {
+        // Parse user and password
+        String[] args = credentials.split(" ");
+        String cmd;
+        try {
+            cmd = "SELECT user_id"
+                    + " FROM User"
+                    + " WHERE username = \"" + args[USERNAME_INDEX] + "\" AND password = \"" + args[PASSWORD_INDEX] + "\";";
+        } catch(IndexOutOfBoundsException e) {
+            throw new Exception("No password given.");
+        }
+        ResultSet rs = callMySQL(cmd);
+        JSONObject obj = new JSONObject();
+        try {
+            if(rs.first()) {
+                obj.put("user_id", Integer.toString(rs.getInt(1)));
+                obj.put("username", args[USERNAME_INDEX]);
+                return obj.toString();
+            }
+        } catch (NullPointerException e) {
+            throw new Exception("Error with SQL statement.");
+        }
+        throw new Exception("Invalid user credentials.");
     }
 
-    private String getParam(String cmd, String prefix) {
-        if(matchesPrefix(cmd, prefix)) {
-            return cmd.substring(prefix.length(), cmd.length());
-        }
-        return null;
-    }
+    public String invokeServer(String cmd) throws Exception {
+        String[] args = cmd.split("-", 2);
+        String command;
+        String params;
 
-    public String invokeServer(String cmd) {
-        String param = getParam(cmd, Constants.LOOKUP_TASK_INFO);
-        if(param != null) {
-            return lookupTaskInfo(param);
+        try {
+            command = args[0];
+            params = args[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new Exception("Command and params parsed incorrectly.");
         }
-        return "";
+
+        switch (command) {
+            case Constants.LOOKUP_TASK_INFO:
+                return lookupTaskInfo(params);
+            case Constants.LOGIN_USER:
+                return lookupUser(params);
+            default:
+                throw new Exception("Command not found");
+        }
     }
 }

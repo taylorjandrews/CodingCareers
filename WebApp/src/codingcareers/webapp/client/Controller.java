@@ -15,8 +15,9 @@ public class Controller {
     private static PageBodyFactory bodyFactory;
     private static History history;
     private static Controller instance;
+    private static User currentUser;
 
-    private native void log(String s) /*-{
+    public static native void log(String s) /*-{
         console.log(s);
     }-*/;
 
@@ -71,6 +72,7 @@ public class Controller {
         log("loadPage" + pageType);
 		PageBody content;
         // TODO: Set page body information for the builder based on known information of controller
+        bodyFactory.setUser(currentUser);
 		try {
 			content = bodyFactory.buildPageBody(pageType);
 		} catch(InvalidPageException e) {
@@ -88,7 +90,6 @@ public class Controller {
 	}
 
     public void loadTaskPage(final int taskID) {
-        //TODO: fetch task information from database and load it into bodyFactor
         log("loadTaskPage" + String.valueOf(taskID));
 
         Model.lookupTaskInfo(taskID, new AsyncCallback<String>() {
@@ -98,6 +99,7 @@ public class Controller {
             public void onSuccess(String result) {
                 // TODO parse result for instructions, tasks, last attempt,
                 // code template, etc.
+                log(result);
                 String instructions = getJSONVal(result, "instructions");
                 bodyFactory.setInstructions(instructions);
                 String tests = getJSONVal(result, "test_code");
@@ -107,6 +109,33 @@ public class Controller {
                 history.newItem(Constants.TASK_PAGE + String.valueOf(taskID));
             }
         });
+    }
+
+    public void login(String username, String password, final UICallback loginFailure) {
+        log("login " + username + password);
+
+        Model.loginUser(username, password, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                log(caught.toString());
+                loginFailure.exec("Could not find username or password.");
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                // TODO parse result
+                log(result);
+                currentUser = new User(getJSONVal(result, "user_id"), getJSONVal(result, "username"));
+                PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
+                loadPage(Constants.PROFILE_PAGE);
+            }
+        });
+    }
+
+    public void logout() {
+        currentUser = null;
+        PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(false);
+        loadPage(Constants.LANDING_PAGE);
     }
 
     /*
