@@ -20,8 +20,13 @@ public class Model {
     }
 
     public static void loginUser(String uname, String pwd,
-                                  AsyncCallback<String> callback) {
+            AsyncCallback<String> callback) {
         rpc.invokeServer(Constants.LOGIN_USER + "-" + uname + " " + pwd, callback);
+    }
+
+    public static void logoutUser(String uname,
+            AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.LOGOUT_USER + "-" + uname, callback);
     }
 
     public static void createUser(String uname, String pwd,

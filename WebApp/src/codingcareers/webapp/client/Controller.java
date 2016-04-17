@@ -125,7 +125,10 @@ public class Controller {
             public void onSuccess(String result) {
                 // TODO parse result
                 log(result);
-                currentUser = new User(getJSONVal(result, "user_id"), getJSONVal(result, "username"));
+                String userID = getJSONVal(result, "user_id");
+                String username = getJSONVal(result, "username");
+                String sessionID = getJSONVal(result, "session_id");
+                currentUser = new User(userID, username, sessionID);
                 PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
                 loadPage(Constants.PROFILE_PAGE);
             }
@@ -133,6 +136,13 @@ public class Controller {
     }
 
     public void logout() {
+        Model.logoutUser(currentUser.getUsername(), new AsyncCallback<String>() {
+            public void onFailure(Throwable caught) {
+                log(caught.toString());
+            }
+            public void onSuccess(String result) {
+            }
+        });
         currentUser = null;
         PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(false);
         loadPage(Constants.LANDING_PAGE);
