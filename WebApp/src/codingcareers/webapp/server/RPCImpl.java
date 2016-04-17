@@ -2,6 +2,7 @@ package codingcareers.webapp.server;
 
 import codingcareers.webapp.client.Constants;
 import codingcareers.webapp.client.RPC;
+import java.lang.Exception;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.sql.*;
 import org.json.simple.JSONObject;
@@ -41,28 +42,35 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         return "";
     }
 
-    private String lookupUser(String credentials) {
+    private String lookupUser(String credentials) throws Exception {
         // Parse user and password
         String[] args = credentials.split(" ");
-        String cmd = "SELECT user_id"
-                + "FROM User"
-                + "WHERE username = " + args[USERNAME_INDEX] + " AND password = " + args[PASSWORD_INDEX];
+        String cmd;
+        try {
+            cmd = "SELECT user_id"
+                    + " FROM User"
+                    + " WHERE username = \"" + args[USERNAME_INDEX] + "\" AND password = \"" + args[PASSWORD_INDEX] + "\";";
+        } catch(IndexOutOfBoundsException e) {
+            throw new Exception("No password given.");
+        }
         ResultSet rs = callMySQL(cmd);
         JSONObject obj = new JSONObject();
         try {
             if(rs.first()) {
-                obj.put("user_id", rs.getString(1));
-                obj.put("username", rs.getString(2));
+//                obj.put("user_id", Integer.toString(rs.getInt(0)));
+//                obj.put("username", args[USERNAME_INDEX]);
+//                return obj.toString();
+                obj.put("user_id", "Dummy ID");
+                obj.put("username", args[USERNAME_INDEX]);
                 return obj.toString();
             }
-        } catch(SQLException e) {
-            return "";
+        } catch (NullPointerException e) {
+            throw new Exception("Error with SQL statement.");
         }
-        return "";
-
+        throw new Exception("Invalid user credentials.");
     }
 
-    public String invokeServer(String cmd) {
+    public String invokeServer(String cmd) throws Exception {
         String[] args = cmd.split("-", 2);
         String command;
         String params;
@@ -71,16 +79,16 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
             command = args[0];
             params = args[1];
         } catch (IndexOutOfBoundsException e) {
-            return "";
+            throw new Exception("Command and params parsed incorrectly.");
         }
 
         switch (command) {
             case Constants.LOOKUP_TASK_INFO:
                 return lookupTaskInfo(params);
-            case Constants.LOOKUP_USER:
+            case Constants.LOGIN_USER:
                 return lookupUser(params);
             default:
-                return "";
+                throw new Exception("Command not found");
         }
     }
 }

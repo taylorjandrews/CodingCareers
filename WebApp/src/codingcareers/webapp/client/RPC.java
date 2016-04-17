@@ -5,5 +5,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("rpc")
 public interface RPC extends RemoteService {
-	String invokeServer(String cmd);
+	String invokeServer(String cmd) throws Exception;
 }

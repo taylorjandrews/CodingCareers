@@ -1,3 +1,4 @@
+drop table if exists User;
 drop table if exists Task;
 
 create table Task
@@ -8,7 +9,19 @@ create table Task
      primary key (task_id)
     );
 
+create table User
+    (user_id        INT NOT NULL AUTO_INCREMENT,
+     username       TEXT,
+     password       TEXT,
+     primary key (user_id)
+    );
+     
+
+
 insert into Task (task_id, instructions, test_code)
 values (25,
         LOAD_FILE('PATH_TO_UTIL_DIR/lessons/lesson25/instructions'),
         LOAD_FILE('PATH_TO_UTIL_DIR/lessons/lesson25/test.py'));
+
+insert into User (username, password)
+    values ("User", "pass");

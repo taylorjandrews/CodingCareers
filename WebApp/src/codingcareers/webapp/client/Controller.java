@@ -99,6 +99,7 @@ public class Controller {
             public void onSuccess(String result) {
                 // TODO parse result for instructions, tasks, last attempt,
                 // code template, etc.
+                log(result);
                 String instructions = getJSONVal(result, "instructions");
                 bodyFactory.setInstructions(instructions);
                 String tests = getJSONVal(result, "test_code");
@@ -111,18 +112,20 @@ public class Controller {
     }
 
     public void login(String username, String password, final UICallback loginFailure) {
-        log("log in" + username + password);
+        log("login " + username + password);
 
         Model.loginUser(username, password, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
+                log(caught.toString());
                 loginFailure.exec("Could not find username or password.");
             }
 
             @Override
             public void onSuccess(String result) {
                 // TODO parse result
-                currentUser = new User("user1", "Phil");
+                log(result);
+                currentUser = new User(getJSONVal(result, "user_id"), getJSONVal(result, "username"));
                 PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
                 loadPage(Constants.PROFILE_PAGE);
             }
