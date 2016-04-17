@@ -57,10 +57,7 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         JSONObject obj = new JSONObject();
         try {
             if(rs.first()) {
-//                obj.put("user_id", Integer.toString(rs.getInt(0)));
-//                obj.put("username", args[USERNAME_INDEX]);
-//                return obj.toString();
-                obj.put("user_id", "Dummy ID");
+                obj.put("user_id", Integer.toString(rs.getInt(1)));
                 obj.put("username", args[USERNAME_INDEX]);
                 return obj.toString();
             }
