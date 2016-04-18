@@ -25,7 +25,6 @@ public class LoginPageBody extends PageBody {
 		add(loginMessage, DockPanel.NORTH);
 
 
-
 		passwordBox = new PasswordTextBox();
         passwordBox.setText("password");
 		add(passwordBox, DockPanel.CENTER);
@@ -39,6 +38,7 @@ public class LoginPageBody extends PageBody {
         addStyleName("show-password");
         
         addStyleName("loginbackground");
+
 
 		attachHandlers();
         
