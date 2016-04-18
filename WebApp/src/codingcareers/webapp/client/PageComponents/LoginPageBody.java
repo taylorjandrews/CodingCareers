@@ -51,6 +51,8 @@ public class LoginPageBody extends PageBody {
 		loginPage.add(loginButton);
 
 		add(loginPage, DockPanel.CENTER);
+
+		attachHandlers();
 	}
 
 	@Override
