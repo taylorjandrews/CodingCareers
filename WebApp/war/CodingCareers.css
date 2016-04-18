@@ -66,6 +66,10 @@
     margin-left: 20%;
     padding-bottom: 3px;
 }
+.loginButton{
+    font-family: sans-serif;
+    padding-left: 30px;
+}
 .emailBox{
     margin-left: 20%;
 }

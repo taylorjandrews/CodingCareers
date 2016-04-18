@@ -5,10 +5,18 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Label;
-
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.*;
 import codingcareers.webapp.client.Constants;
+import codingcareers.webapp.client.Controller;
+import codingcareers.webapp.client.UICallback;
 
 public class LoginPageBody extends PageBody {
+
+	private TextBox usernameBox;
+	private TextBox passwordBox;
+	private Button loginButton;
 
 	public LoginPageBody() {
 		Label loginMessage = new Label();
@@ -24,7 +32,7 @@ public class LoginPageBody extends PageBody {
 		loginPage.add(loginUsername);
 
 		TextBox emailBox = new TextBox();
-		emailBox.setText("johndoe@gmail.com");
+		emailBox.setText("H3LL0 L@UR3N");
 		emailBox.addStyleName("emailBox");
 		loginPage.add(emailBox);
 
@@ -37,12 +45,27 @@ public class LoginPageBody extends PageBody {
 		passwordBox.addStyleName("passwordBox");
 		loginPage.add(passwordBox);
 
+		loginButton = new Button();
+		loginButton.setText("Log in");
+		loginButton.addStyleName("loginButton");
+		loginPage.add(loginButton);
+
 		add(loginPage, DockPanel.CENTER);
 	}
 
 	@Override
 	public void attachHandlers() {
-		// STUB
+		loginButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Controller.getInstance().login(usernameBox.getText(), passwordBox.getText(), new UICallback() {
+					@Override
+					public void exec(String args) {
+						add(new Label(args), DockPanel.SOUTH);
+					}
+				});
+			}
+		});
 	}
 	
 }
