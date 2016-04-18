@@ -1,6 +1,9 @@
 .title {
 	float:left;	
-    color: #666;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(#ff00bf, #b30086);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-align: center;
     margin-left:3%;
     text-decoration: none;
@@ -8,7 +11,7 @@
 }
 .credits{
 	float:none;	
-    color: #666;
+    color: #000000;
     text-align:center;
     text-decoration: none;
     font-size:200%;
@@ -16,31 +19,42 @@
 .welcomeMessage{
 	padding-top:20px;
 	float:none;	
-    color: #222;
-    text-align:center;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(#ff00bf, #b30086);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin:auto;
     text-decoration: none;
-    font-size:350%;
+    font-size:500%;
+    text-align:center;
+		padding-right:300px;
 }
 
-.textMessage{
+.aboutMessage{
 	float:none;	
-    color: #666;
+    font-family: sans-serif;
+    color: #808080;
     text-decoration: none;
-    font-size:110%;
-    padding-top: 20px;
-    padding-right: 50px;
-    padding-bottom: 10px;
+		word-wrap:normal;
+
+		/*background-image:url(../images/aboutPageBackground.jpg); */
+    font-size:140%;
+    padding-top: 15px;
+    padding-bottom: 20px;
     padding-left: 50px;
+		padding-right:530px;
+		line-height:150%;
 }
 
 .tryItNow{
-	margin-left:40%;
 	float:none;	
-    color: #666;
-    text-align: center;
+    font-family: sans-serif;
+    color: #000000;
     text-decoration: none;
     font-size:280%;
+    text-align: center;
+		margin-left: 20%;
+		margin-top:5%;
 }
 
 ul {
@@ -84,4 +98,12 @@ li a.active {
   padding: 1rem;
   background-color: #efefef;
   text-align: center;
+}
+
+.aboutBackground {
+	background-image:url(../images/aboutPageBackground.jpg);
+	background-size: cover;
+	width:100%;
+	height:580px;
+	
 }
