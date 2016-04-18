@@ -1,10 +1,16 @@
 package codingcareers.webapp.client.PageComponents;
 
-import codingcareers.webapp.client.Controller;
-import codingcareers.webapp.client.UICallback;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
+import codingcareers.webapp.client.Constants;
+import codingcareers.webapp.client.Controller;
+import codingcareers.webapp.client.UICallback;
 
 public class LoginPageBody extends PageBody {
 
@@ -13,16 +19,38 @@ public class LoginPageBody extends PageBody {
 	private Button loginButton;
 
 	public LoginPageBody() {
-		usernameBox = new TextBox();
-		usernameBox.setText("username");
-		add(usernameBox, DockPanel.NORTH);
+		Label loginMessage = new Label();
+		loginMessage.setText("Welcome back to Coding Careers! If you already have an account, login here.");
+		loginMessage.addStyleName("loginMessage");
+		add(loginMessage, DockPanel.NORTH);
 
-		passwordBox = new PasswordTextBox();
-		add(passwordBox, DockPanel.CENTER);
+
+		VerticalPanel loginPage = new VerticalPanel();
+		Label loginUsername = new Label();
+		loginUsername.setText("Username");
+		loginUsername.addStyleName("loginUsername");
+		loginPage.add(loginUsername);
+
+		TextBox emailBox = new TextBox();
+		emailBox.setText("H3LL0 L@UR3N");
+		emailBox.addStyleName("emailBox");
+		loginPage.add(emailBox);
+
+		Label loginPassword = new Label();
+		loginPassword.setText("Password");
+		loginPassword.addStyleName("loginPassword");
+		loginPage.add(loginPassword);
+
+		TextBox passwordBox = new PasswordTextBox();
+		passwordBox.addStyleName("passwordBox");
+		loginPage.add(passwordBox);
 
 		loginButton = new Button();
 		loginButton.setText("Log in");
-		add(loginButton, DockPanel.EAST);
+		loginButton.addStyleName("loginButton");
+		loginPage.add(loginButton);
+
+		add(loginPage, DockPanel.CENTER);
 
 		attachHandlers();
 	}
