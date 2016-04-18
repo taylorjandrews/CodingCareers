@@ -18,13 +18,20 @@ public class LoginPageBody extends PageBody {
 		add(usernameBox, DockPanel.NORTH);
 
 		passwordBox = new PasswordTextBox();
+        passwordBox.setText("password");
 		add(passwordBox, DockPanel.CENTER);
-
+        
+        addStyleName("login");
 		loginButton = new Button();
 		loginButton.setText("Log in");
+        
+        addStyleName("loginButton");
 		add(loginButton, DockPanel.EAST);
-
+        addStyleName("show-password");
+        
+        addStyleName("loginbackground");
 		attachHandlers();
+        
 	}
 
 	@Override
