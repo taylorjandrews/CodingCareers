@@ -24,6 +24,7 @@ public class TaskPageBody extends PageBody {
 	private final AceEditor editor;
 	private final TextArea outputBox;
 	private final Button codeSubmit;
+	private final Button codeReset;
 
 	private String tests;
 
@@ -140,6 +141,7 @@ public class TaskPageBody extends PageBody {
 		editor = new AceEditor();
 		outputBox = new TextArea();
 		codeSubmit = new Button("Submit");
+		codeReset = new Button("Reset");
 
 		instructionBox.setCharacterWidth(30);
 		editor.setWidth("500px");
@@ -157,11 +159,18 @@ public class TaskPageBody extends PageBody {
 			}
 		});
 
+		codeReset.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				editor.setText("");
+			}
+		});
+
 		VerticalPanel instructionPanel = new VerticalPanel();
 		instructionPanel.add(instructionBox);
 
 		VerticalPanel code = new VerticalPanel();
 		code.add(editor);
+		code.add(codeReset);
 
 		VerticalPanel output = new VerticalPanel();
 		output.add(outputBox);
