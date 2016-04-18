@@ -12,6 +12,7 @@ import codingcareers.webapp.client.Constants;
 import codingcareers.webapp.client.Controller;
 import codingcareers.webapp.client.UICallback;
 
+
 public class LoginPageBody extends PageBody {
 
 	private TextBox usernameBox;
@@ -19,11 +20,15 @@ public class LoginPageBody extends PageBody {
 	private Button loginButton;
 
 	public LoginPageBody() {
+		
 		Label loginMessage = new Label();
 		loginMessage.setText("Welcome back to Coding Careers! If you already have an account, login here.");
 		loginMessage.addStyleName("loginMessage");
 		add(loginMessage, DockPanel.NORTH);
-
+		
+		usernameBox = new TextBox();
+		usernameBox.setText("username");
+		add(usernameBox, DockPanel.NORTH);
 
 		passwordBox = new PasswordTextBox();
         passwordBox.setText("password");
@@ -38,8 +43,6 @@ public class LoginPageBody extends PageBody {
         addStyleName("show-password");
         
         addStyleName("loginbackground");
-
-
 		attachHandlers();
         
 	}
