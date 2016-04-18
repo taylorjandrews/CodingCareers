@@ -29,23 +29,53 @@
     text-align:center;
 		padding-right:300px;
 }
-
 .aboutMessage{
 	float:none;	
     font-family: sans-serif;
     color: #808080;
     text-decoration: none;
-		word-wrap:normal;
+	word-wrap:normal;
 
 		/*background-image:url(../images/aboutPageBackground.jpg); */
     font-size:120%;
     padding-top: 15px;
     padding-bottom: 20px;
     padding-left: 50px;
-		padding-right:530px;
-		line-height:150%;
+	padding-right:530px;
+	line-height:150%;
 }
-
+.loginMessage{
+    padding-top:20px;
+    padding-bottom:20px;
+    float:none; 
+    font-family: sans-serif;
+    color: #000000;
+    margin:auto;
+    text-decoration: none;
+    font-size:200%;
+    text-align:right;
+}
+.loginUsername{
+    font-family: sans-serif;
+    margin-left: 20%;
+    padding-bottom: 3px;
+}
+.loginPassword{
+    padding-top:20px;
+    font-family: sans-serif;
+    margin-left: 20%;
+    padding-bottom: 3px;
+}
+.loginButton{
+    font-family: sans-serif;
+    padding-left: 30px;
+}
+.emailBox{
+    margin-left: 20%;
+}
+.passwordBox{
+    margin-left: 20%;
+}
 .tryItNow{
 	float:none;	
     font-family: sans-serif;

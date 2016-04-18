@@ -1,10 +1,16 @@
 package codingcareers.webapp.client.PageComponents;
 
-import codingcareers.webapp.client.Controller;
-import codingcareers.webapp.client.UICallback;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
+import codingcareers.webapp.client.Constants;
+import codingcareers.webapp.client.Controller;
+import codingcareers.webapp.client.UICallback;
 
 public class LoginPageBody extends PageBody {
 
@@ -13,9 +19,12 @@ public class LoginPageBody extends PageBody {
 	private Button loginButton;
 
 	public LoginPageBody() {
-		usernameBox = new TextBox();
-		usernameBox.setText("username");
-		add(usernameBox, DockPanel.NORTH);
+		Label loginMessage = new Label();
+		loginMessage.setText("Welcome back to Coding Careers! If you already have an account, login here.");
+		loginMessage.addStyleName("loginMessage");
+		add(loginMessage, DockPanel.NORTH);
+
+
 
 		passwordBox = new PasswordTextBox();
         passwordBox.setText("password");
@@ -30,6 +39,7 @@ public class LoginPageBody extends PageBody {
         addStyleName("show-password");
         
         addStyleName("loginbackground");
+
 		attachHandlers();
         
 	}
