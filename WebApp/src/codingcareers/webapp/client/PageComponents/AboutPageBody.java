@@ -16,7 +16,7 @@ public class AboutPageBody extends PageBody{
 	public AboutPageBody(){
         addStyleName("aboutBackground");
 		Label welcomeMessage = new Label();
-		welcomeMessage.setText("Welcome to "+ Constants.TITLE);
+		welcomeMessage.setText("Welcome to {"+ Constants.TITLE + "}");
 		welcomeMessage.addStyleName("welcomeMessage");
 		add(welcomeMessage, DockPanel.NORTH);
 
