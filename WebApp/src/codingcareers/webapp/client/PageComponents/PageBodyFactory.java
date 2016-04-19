@@ -49,6 +49,9 @@ public class PageBodyFactory {
                 }
                 toBuild = body;
                 break;
+            case PROFILE_CREATION:
+                toBuild = new ProfileCreationBody();
+                break;
             default:
                 throw new InvalidPageException("Invalid page type give for construction.");
 		}

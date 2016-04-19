@@ -35,6 +35,7 @@ public final class Constants {
 	public static final String TASK_PAGE = "task";
 	public static final String TASK_SELECTION_PAGE = "task selection";
 	public static final String PROFILE_PAGE = "profile";
+	public static final String PROFILE_CREATION = "profile creation";
 
 	// Model/Database constants
 	public static final String LOOKUP_USER = "model lookupuser";

@@ -18,6 +18,7 @@ public class LoginPageBody extends PageBody {
 	private TextBox usernameBox;
 	private TextBox passwordBox;
 	private Button loginButton;
+    private Button newProfileButton;
 
 	public LoginPageBody() {
 		
@@ -37,9 +38,16 @@ public class LoginPageBody extends PageBody {
         addStyleName("login");
 		loginButton = new Button();
 		loginButton.setText("Log in");
+
+        newProfileButton = new Button();
+        newProfileButton.setText("Create Profile");
+
+        DockPanel buttonPanel = new DockPanel();
+        buttonPanel.add(loginButton, DockPanel.NORTH);
+        buttonPanel.add(newProfileButton, DockPanel.SOUTH);
         
         addStyleName("loginButton");
-		add(loginButton, DockPanel.EAST);
+		add(buttonPanel, DockPanel.EAST);
         addStyleName("show-password");
         
         addStyleName("loginbackground");
@@ -60,6 +68,13 @@ public class LoginPageBody extends PageBody {
 				});
 			}
 		});
+
+        newProfileButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                Controller.getInstance().loadPage(Constants.PROFILE_CREATION);
+            }
+        });
 	}
 	
 }

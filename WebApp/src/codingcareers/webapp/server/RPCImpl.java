@@ -5,9 +5,12 @@ import codingcareers.webapp.client.RPC;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.lang.Exception;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.UUID;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
+import org.apache.http.auth.InvalidCredentialsException;
 import org.json.simple.JSONObject;
 
 public class RPCImpl extends RemoteServiceServlet implements RPC {
@@ -64,10 +67,7 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
 
     private String lookupUser(String credentials) throws Exception {
         // Parse user and password
-        String[] args = credentials.split(" ");
-        MessageDigest md = MessageDigest.getInstance("SHA-512");
-        args[PASSWORD_INDEX] = new HexBinaryAdapter()
-            .marshal(md.digest(args[PASSWORD_INDEX].getBytes()));
+        String[] args = parseCredentials(credentials);
         String cmd;
         try {
             cmd = "SELECT user_id"
@@ -91,7 +91,33 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         } catch (NullPointerException | SQLException e) {
             throw new Exception("Error with SQL statement.");
         }
-        throw new Exception("Invalid user credentials.");
+        throw new InvalidCredentialsException("Invalid user credentials.");
+    }
+
+    private String createUser(String credentials) throws Exception {
+        try {
+            lookupUser(credentials);
+            throw new Exception("Non-unique credentials.");
+        } catch (InvalidCredentialsException e) {
+            String[] args = parseCredentials(credentials);
+            String cmd = "INSERT INTO User (username, password)"
+                    + "VALUES (\"" + args[USERNAME_INDEX] + "\", \"" + args[PASSWORD_INDEX] + "\");";
+            update(cmd);
+            return lookupUser(credentials);
+        }
+    }
+
+    private String[] parseCredentials(String credentials) {
+        String[] args = credentials.split(" ");
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-512");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        args[PASSWORD_INDEX] = new HexBinaryAdapter()
+                .marshal(md.digest(args[PASSWORD_INDEX].getBytes()));
+        return args;
     }
 
     public String invokeServer(String cmd) throws Exception {
@@ -114,6 +140,8 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
             case Constants.LOGOUT_USER:
                 logoutUser(params);
                 return "";
+            case Constants.CREATE_USER:
+                return createUser(params);
             default:
                 throw new Exception("Command not found");
         }

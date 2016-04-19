@@ -31,7 +31,7 @@ public class Model {
 
     public static void createUser(String uname, String pwd,
             AsyncCallback<String> callback) {
-        rpc.invokeServer(Constants.CREATE_USER + "-" + uname + pwd, callback);
+        rpc.invokeServer(Constants.CREATE_USER + "-" + uname + " " + pwd, callback);
     }
 
     public static void updateProgress(String progress,
