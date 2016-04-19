@@ -123,14 +123,7 @@ public class Controller {
 
             @Override
             public void onSuccess(String result) {
-                // TODO parse result
-                log(result);
-                String userID = getJSONVal(result, "user_id");
-                String username = getJSONVal(result, "username");
-                String sessionID = getJSONVal(result, "session_id");
-                currentUser = new User(userID, username, sessionID);
-                PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
-                loadPage(Constants.PROFILE_PAGE);
+                handleLogIn(result);
             }
         });
     }
@@ -148,6 +141,23 @@ public class Controller {
         loadPage(Constants.LANDING_PAGE);
     }
 
+    public void createAccount(String username, String password, final UICallback creationFailure) {
+        log("create " + username + password);
+
+        Model.createUser(username, password, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                log(caught.toString());
+                creationFailure.exec("Pick unique credentials please!");
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                handleLogIn(result);
+            }
+        });
+    }
+
     /*
     Code for this found at http://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
      */
@@ -158,6 +168,16 @@ public class Controller {
             return false;
         }
         return true;
+    }
+
+    private void handleLogIn(String result) {
+        log(result);
+        String userID = getJSONVal(result, "user_id");
+        String username = getJSONVal(result, "username");
+        String sessionID = getJSONVal(result, "session_id");
+        currentUser = new User(userID, username, sessionID);
+        PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
+        loadPage(Constants.PROFILE_PAGE);
     }
 	
 	//TODO: handleWidgetInput(s: String, callback: UICallback): void
