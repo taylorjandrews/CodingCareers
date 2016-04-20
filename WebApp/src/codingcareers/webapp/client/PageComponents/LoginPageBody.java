@@ -23,7 +23,7 @@ public class LoginPageBody extends PageBody {
 	public LoginPageBody() {
 		
 		Label loginMessage = new Label();
-		loginMessage.setText("Welcome back to Coding Careers! If you already have an account, login here.");
+		loginMessage.setText("Please log in to your account.");
 		loginMessage.addStyleName("loginMessage");
 		add(loginMessage, DockPanel.NORTH);
 		
