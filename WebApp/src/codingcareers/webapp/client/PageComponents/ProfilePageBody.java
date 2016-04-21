@@ -1,6 +1,7 @@
 package codingcareers.webapp.client.PageComponents;
 
 import codingcareers.webapp.client.Constants;
+import codingcareers.webapp.client.Controller;
 import codingcareers.webapp.client.User;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -8,12 +9,14 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProfilePageBody extends PageBody {
 
 	Label usernameTitle;
 	Label ranking;
-    ArrayList<ProgressPanel> progressBars;
+    HashMap<String, ProgressPanel> progressBars;
+    VerticalPanel progressPanel;
     User currUser;
 
     private final String USERNAME_FIELD = "Username: ";
@@ -21,35 +24,30 @@ public class ProfilePageBody extends PageBody {
     private final String[] RANKINGS = {"Newbie", "Novice", "Proficient", "Expert", "Start Coder"};
 
 
-	public ProfilePageBody() {
+	public ProfilePageBody(User user) {
+        assert(user != null);
+        currUser = user;
+
         DockPanel topPanel = new DockPanel();
 
 		VerticalPanel infoPanel = new VerticalPanel();
 		usernameTitle = new Label();
-		usernameTitle.setText("Username: NO USER SELECTED");
+        usernameTitle.setText(USERNAME_FIELD + user.getUsername());
 		infoPanel.add(usernameTitle);
 		ranking = new Label();
-		ranking.setText("Current Rank: NO RANK");
+        ranking.setText(RANK_FIELD + getRank());
         infoPanel.add(ranking);
         topPanel.add(infoPanel, DockPanel.EAST);
-
         add(topPanel, DockPanel.NORTH);
-        VerticalPanel progressPanel = new VerticalPanel();
+
+        progressPanel = new VerticalPanel();
         progressBars = constructProgressBars();
-        for (VerticalPanel vp : progressBars) {
-            progressPanel.add(vp);
+        for (String task : Constants.TASK_SUBJECTS) {
+            progressPanel.add(progressBars.get(task));
         }
 
         add(progressPanel, DockPanel.CENTER);
 
-	}
-
-	public void setUser(User user) {
-        currUser = user;
-
-        //Update user info on page
-		usernameTitle.setText(USERNAME_FIELD + user.getUsername());
-        ranking.setText(RANK_FIELD + getRank());
 	}
 
     private String getRank() {
@@ -57,13 +55,17 @@ public class ProfilePageBody extends PageBody {
         for (String task : Constants.TASK_SUBJECTS) {
             totalComplete += getTaskCompleteness(task);
         }
-        return RANKINGS[(int) Math.ceil(totalComplete/5.0) - 1];
+        int rankIndex = (int) Math.ceil(totalComplete/5.0) - 1;
+        if (rankIndex < 0) {
+            rankIndex = 0;
+        }
+        return RANKINGS[rankIndex];
     }
 
-    private ArrayList<ProgressPanel> constructProgressBars() {
-        ArrayList<ProgressPanel> progressBarCollection = new ArrayList<>();
+    private HashMap<String, ProgressPanel> constructProgressBars() {
+        HashMap<String, ProgressPanel> progressBarCollection = new HashMap<>();
         for (String task : Constants.TASK_SUBJECTS) {
-            progressBarCollection.add(new ProgressPanel(task, getTaskCompleteness(task)));
+            progressBarCollection.put(task, new ProgressPanel(task, getTaskCompleteness(task)));
         }
         return progressBarCollection;
     }

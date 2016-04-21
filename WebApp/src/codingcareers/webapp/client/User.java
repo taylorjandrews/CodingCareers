@@ -63,6 +63,18 @@ public class User {
 
     }
 
+    public void updateTaskComplete(String taskName, int bitMapIndex) {
+        // If taskProgress has not been loaded in we don't need to do anything since there should be an update
+        // to the db already
+        if (taskProgress == null) {
+            return;
+        } else {
+            int[] bitMap = getTaskBitVector(taskName);
+            bitMap[bitMapIndex] = 1;
+            taskProgress.put(taskName, bitMap);
+        }
+    }
+
     private HashMap<String, int[]> loadInTaskProgress() {
         HashMap<String, int[]> initialized = new HashMap<>();
         for (String task : Constants.TASK_SUBJECTS) {
