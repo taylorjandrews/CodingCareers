@@ -1,1 +1,1 @@
-Write a function called 'f' that takes one integer parameter n and returns n factorial.
+Write a function called 'f' that takes one integer parameter n and returns the nth number in the fibonacci sequence starting from 0.
