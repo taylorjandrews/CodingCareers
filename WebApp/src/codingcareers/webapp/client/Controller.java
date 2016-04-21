@@ -10,12 +10,14 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class Controller {
+    // TODO Decide on static data or singleton, both makes no sense
     private static PageComposite view;
     private static CodeInterpreter interpreter;
     private static PageBodyFactory bodyFactory;
     private static History history;
     private static Controller instance;
     private static User currentUser;
+    private static int lastTaskPage;
 
     public static native void log(String s) /*-{
         console.log(s);
@@ -100,6 +102,7 @@ public class Controller {
                 // TODO parse result for instructions, tasks, last attempt,
                 // code template, etc.
                 log(result);
+                lastTaskPage = taskID;
                 String instructions = getJSONVal(result, "instructions");
                 bodyFactory.setInstructions(instructions);
                 String tests = getJSONVal(result, "test_code");
@@ -107,6 +110,24 @@ public class Controller {
 
                 loadPage(Constants.TASK_PAGE);
                 history.newItem(Constants.TASK_PAGE + String.valueOf(taskID));
+            }
+        });
+    }
+
+    public void logTaskProgress(int testsPassed, int testsTotal) {
+        if(currentUser == null)
+            return;
+
+        String sessionID = currentUser.getSession_id();
+        if(sessionID == User.INVALID_VALUE)
+            return;
+
+        Model.updateProgress(lastTaskPage, sessionID, testsPassed, testsTotal,
+                new AsyncCallback<String>() {
+            public void onFailure(Throwable caught) {
+                log("Failed to save task progress");
+            }
+            public void onSuccess(String result) {
             }
         });
     }

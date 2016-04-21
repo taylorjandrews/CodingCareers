@@ -17,6 +17,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import codingcareers.webapp.client.ace.*;
+import codingcareers.webapp.client.Controller;
 
 public class TaskPageBody extends PageBody {
 
@@ -62,6 +63,10 @@ public class TaskPageBody extends PageBody {
 			// Assume any use of PY_TEST_PRINT_PREFIX will contain additional text. If this
 			// is not the case, the tests have provided no information.
 			String result = text.substring(PY_TEST_PRINT_PREFIX.length(), text.length());
+			String[] testStats = result.split("/", 2);
+			int testsPassed = Integer.parseInt(testStats[0]);
+			int testsTotal = Integer.parseInt(testStats[1]);
+			Controller.getInstance().logTaskProgress(testsPassed, testsTotal);
 			appendOutput = "==============================\n" + result;
 			// TODO parse result and send to server
 		} else {

@@ -1,5 +1,6 @@
 drop table if exists User;
 drop table if exists Task;
+drop table if exists TaskProgress;
 
 create table Task
     (task_id        INT,
@@ -16,7 +17,15 @@ create table User
      session_id     CHAR(36),
      primary key (user_id)
     );
-     
+
+create table TaskProgress
+    (user_id        INT,
+     task_id        INT,
+     tests_passed   INT,
+     tests_total    INT,
+     code_attempt   TEXT,
+     primary key (user_id, task_id)
+    );
 
 
 insert into Task (task_id, instructions, test_code)

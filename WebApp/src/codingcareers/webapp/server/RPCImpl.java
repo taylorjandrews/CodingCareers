@@ -29,9 +29,9 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         return s.executeQuery(cmd);
     }
 
-    private void update(String cmd) throws SQLException {
+    private int update(String cmd) throws SQLException {
         Statement s = connectDB();
-        s.executeUpdate(cmd);
+        return s.executeUpdate(cmd);
     }
 
     private String lookupTaskInfo(String param) {
@@ -120,6 +120,47 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         return args;
     }
 
+    // TODO only update progress if better than previous progress
+    private void insertTaskProgress(String taskID, String userID,
+            String testsPassed, String testsTotal) throws SQLException {
+        String cmd = "INSERT INTO TaskProgress (user_id, task_id, " +
+            " tests_passed, tests_total) values (" + userID + ", " + taskID +
+            ", " + testsPassed + ", " + testsTotal + ") ON DUPLICATE KEY " +
+            "UPDATE tests_passed = " + testsPassed + ", tests_total = " +
+            testsTotal + ";";
+        update(cmd);
+    }
+
+    private String getUserIDFromSessionID(String sessionID) throws SQLException {
+        String cmd = "SELECT user_id FROM User WHERE session_id = \"" +
+            sessionID + "\";";
+        ResultSet rs = query(cmd);
+        if(rs.first()) {
+            return rs.getString(1);
+        }
+        return null;
+    }
+
+    private String updateProgress(String params) {
+        String[] args = params.split(" ", 4);
+        String taskID = args[0];
+        String sessionID = args[1];
+        String testsPassed = args[2];
+        String testsTotal = args[3];
+        // TODO get userID from sessionID
+        try {
+            String userID = getUserIDFromSessionID(sessionID);
+            if(userID == null)
+                return "Failure";
+
+            insertTaskProgress(taskID, userID, testsPassed, testsTotal);
+
+            return "Success";
+        } catch (SQLException e) {
+            return "Failure";
+        }
+    }
+
     public String invokeServer(String cmd) throws Exception {
         String[] args = cmd.split("-", 2);
         String command;
@@ -142,6 +183,8 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
                 return "";
             case Constants.CREATE_USER:
                 return createUser(params);
+            case Constants.UPDATE_PROGRESS:
+                return updateProgress(params);
             default:
                 throw new Exception("Command not found");
         }
