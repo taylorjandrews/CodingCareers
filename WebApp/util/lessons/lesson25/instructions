@@ -1,1 +1,1 @@
-Write a function called 'f' that takes one integer parameter n and returns n factorial.
+def foo
