@@ -27,6 +27,8 @@ public class TaskPageBody extends PageBody {
 	private final Button codeReset;
 
 	private String tests;
+	private String pyStdout;
+	private String pass1Results;
 
 	private static String py_test_prelude =
 		"class CodingCareers__():\n" +
@@ -43,8 +45,8 @@ public class TaskPageBody extends PageBody {
 		"            self.test_pass()\n" +
 		"        else:\n" +
 		"            self.test_fail()\n" +
-		"    def report(self):\n" +
-		"        print('{}{}/{}'.format(PY_TEST_PRINT_PREFIX, self.correct, self.total))\n\n";
+		"    def report(self, cmd):\n" +
+		"        print('{} {} {}/{}'.format(PY_TEST_PRINT_PREFIX, cmd, self.correct, self.total))\n\n";
 
 
 	// TODO randomly generate this on first use
@@ -54,17 +56,50 @@ public class TaskPageBody extends PageBody {
 
 	// TODO change public methods for python interpreter to private if possible
 
-	// TODO decide whether to run python tests or regex on output (maybe use
-	// strategy pattern if implemented)
+	// This is a huge mess because I don't know of an easy way to go from
+	// javascript -> running python instance. I can't believe this actually
+	// works. What it does:
+	// Whenever we print something, log it to pyStdout
+	// Wait until we see a PY_TEST_PRINT_PREFIX string with "pass1" argument 1
+	// save argument 2 to pass1Results. This is a "n/m" string detailing
+	//   passing tests for the first pass
+	// Start another instance of the Python interpreter running just the test
+	//   code except with CCStdout set to what we logged during the first pass
+	// Wait until we see a PY_TEST_PRINT_PREFIX string with "pass2" argument 1
+	// get argument 2, another "n/m" string. Parse the results and add pass 2
+	//   test stats to pass 1 test stats to get overall test stats.
+	//
+	// Effectively, we run our test code twice. The first time we also run
+	// user-inputted code. The second time we only run the test code. In the
+	// first run, CCStdout == None. In the second run, CCStdout is set to the
+	// stdout we logged. Accordingly, the python tests in the database should
+	// check if CCStdout == None to determine which time it's being run. The
+	// first time, check the return values of function calls and whatnot. The
+	// second time, check stdout is what we expected it to be. After the first
+	// pass, call cc.report('pass1). After the second pass, call
+	// cc.report('pass2').
 	public void outf(String text) {
 		String appendOutput = "";
-		if(text.length() >= PY_TEST_PRINT_PREFIX.length()) {
-			// Assume any use of PY_TEST_PRINT_PREFIX will contain additional text. If this
-			// is not the case, the tests have provided no information.
-			String result = text.substring(PY_TEST_PRINT_PREFIX.length(), text.length());
-			appendOutput = "==============================\n" + result;
-			// TODO parse result and send to server
+		if(text.length() >= PY_TEST_PRINT_PREFIX.length() && text.substring(0,
+					PY_TEST_PRINT_PREFIX.length()) == PY_TEST_PRINT_PREFIX) {
+			// Assume any use of PY_TEST_PRINT_PREFIX is formatted like:
+			// PY_TEST_PRINT_PREFIX pass1|pass2 n/m
+			String[] args = text.split(" ", 3);
+			if(args[1].equals("pass1")) {
+				pass1Results = args[2];
+				runWithPyTests("CCStdout = '''" + pyStdout + "'''\n", tests);
+			} else if(args[1].equals("pass2")) {
+				String pass2Results = args[2];
+				String[] pass1Split = pass1Results.split("/", 2);
+				String[] pass2Split = pass2Results.split("/", 2);
+				int testsPassed = Integer.parseInt(pass1Split[0]) + Integer.parseInt(pass2Split[0]);
+				int testsTotal = Integer.parseInt(pass1Split[1]) + Integer.parseInt(pass2Split[1]);
+				//Controller.getInstance().logTaskProgress(testsPassed, testsTotal);
+				appendOutput = "==============================\n" +
+					String.valueOf(testsPassed) + "/" + String.valueOf(testsTotal) + "\n";
+			}
 		} else {
+			pyStdout += text;
 			appendOutput = text;
 		}
 		outputBox.setText(outputBox.getText() + appendOutput);
@@ -116,7 +151,8 @@ public class TaskPageBody extends PageBody {
 	}
 
 	private void runWithCodeBox(String tests) {
-		runWithPyTests(editor.getText(), tests);
+		pyStdout = "";
+		runWithPyTests(editor.getText(), "CCStdout = None\n" + tests);
 	}
 
 	private void run() {
