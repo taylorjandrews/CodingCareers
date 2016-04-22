@@ -155,11 +155,12 @@ public class Controller {
                 log(caught.toString());
             }
             public void onSuccess(String result) {
+                currentUser.logout();
+                currentUser = null;
+                PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(false);
+                loadPage(Constants.LANDING_PAGE);
             }
         });
-        currentUser = null;
-        PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(false);
-        loadPage(Constants.LANDING_PAGE);
     }
 
     public void createAccount(String username, String password, final UICallback creationFailure) {

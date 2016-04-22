@@ -1,5 +1,6 @@
 package codingcareers.webapp.client.PageComponents;
 
+import codingcareers.webapp.client.Controller;
 import codingcareers.webapp.client.User;
 
 import java.util.ArrayList;
@@ -43,11 +44,11 @@ public class PageBodyFactory {
                 toBuild =  new TaskSelectionPageBody();
                 break;
             case PROFILE_PAGE:
-                ProfilePageBody body = new ProfilePageBody();
-                if (user != null) {
-                    body.setUser(user);
+                if (user == null) {
+                    toBuild = new LoginPageBody();
+                } else {
+                    toBuild = new ProfilePageBody(user);
                 }
-                toBuild = body;
                 break;
             case PROFILE_CREATION:
                 toBuild = new ProfileCreationBody();

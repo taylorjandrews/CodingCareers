@@ -1,5 +1,7 @@
 package codingcareers.webapp.client;
 
+import java.util.HashMap;
+
 /**
  * Created by ian on 4/16/16.
  */
@@ -8,6 +10,7 @@ public class User {
     private final String username;
     private String session_id;
     private boolean loggedIn;
+    private HashMap<String, int[]> taskProgress;
 
     public final static String INVALID_VALUE = "not_valid";
 
@@ -40,6 +43,49 @@ public class User {
         } else {
             return INVALID_VALUE;
         }
+    }
+
+    public int getTaskTotalCompletion(String taskName) {
+        int[] bitVector = getTaskBitVector(taskName);
+        int sum = 0;
+        for (int i = 0; i < Constants.TOTAL_LESSONS_IN_SUBJECT; i++) {
+            sum += bitVector[i];
+        }
+        return sum;
+    }
+
+    // Lazy loading so if we haven't looked it up yet it will be looked up now
+    public int[] getTaskBitVector(String taskName) {
+        if (taskProgress == null) {
+            taskProgress = loadInTaskProgress();
+        }
+        return taskProgress.get(taskName);
+
+    }
+
+    public void updateTaskComplete(String taskName, int bitMapIndex) {
+        // If taskProgress has not been loaded in we don't need to do anything since there should be an update
+        // to the db already
+        if (taskProgress == null) {
+            return;
+        } else {
+            int[] bitMap = getTaskBitVector(taskName);
+            bitMap[bitMapIndex] = 1;
+            taskProgress.put(taskName, bitMap);
+        }
+    }
+
+    private HashMap<String, int[]> loadInTaskProgress() {
+        HashMap<String, int[]> initialized = new HashMap<>();
+        for (String task : Constants.TASK_SUBJECTS) {
+            int[] bitMap = new int[Constants.TOTAL_LESSONS_IN_SUBJECT];
+            for (int i = 0; i < Constants.TOTAL_LESSONS_IN_SUBJECT; i++) {
+                bitMap[i] = 0;
+            }
+            initialized.put(task, bitMap);
+        }
+        // TODO: Load in information from database
+        return initialized;
     }
 
     public void logout() {
