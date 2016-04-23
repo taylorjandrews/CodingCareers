@@ -95,7 +95,7 @@ public class TaskPageBody extends PageBody {
 				String[] pass2Split = pass2Results.split("/", 2);
 				int testsPassed = Integer.parseInt(pass1Split[0]) + Integer.parseInt(pass2Split[0]);
 				int testsTotal = Integer.parseInt(pass1Split[1]) + Integer.parseInt(pass2Split[1]);
-				//Controller.getInstance().logTaskProgress(testsPassed, testsTotal);
+				Controller.getInstance().logTaskProgress(testsPassed, testsTotal);
 				appendOutput = "==============================\n" +
 					String.valueOf(testsPassed) + "/" + String.valueOf(testsTotal) + "\n";
 			}
@@ -221,12 +221,6 @@ public class TaskPageBody extends PageBody {
 		editor.startEditor();
 		editor.setMode(AceEditorMode.PYTHON);
 		editor.setAutocompleteEnabled(true);
-		editor.setText(
-				"def f(n):\n" +
-				" if n < 2:\n" +
-				"  return n\n" +
-				" else:\n" +
-				"  return f(n - 1) + f(n - 2)\n");
 
 		exportOutf();
 		exportClearOutput();
