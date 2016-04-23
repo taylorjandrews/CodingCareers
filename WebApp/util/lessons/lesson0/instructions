@@ -1,0 +1,11 @@
+Welcome to Coding Careers, the interactive coding tutorial through the world of software engineering. Before we begin let's explain what coding is. I sure at this point you've heard or read somewhere that everyone needs to learn coding, right? Well, people say that for a reason!  Whether you're looking for a job, wanting to create your own game, or starting a new hobby, you can benefit from learning coding. Coding is what makes it possible to create computer software, apps on your cell phone, the games you play on your Xbox, the tools your doctors use to check if you're sick, and so much more. Pretty cool right?
+
+But why is it so important? Learning coding empowers you to do many things you wouldn't otherwise be able to do. These things include: hand-crafting your own websites, becoming a career coder, or even starting a technology company. Most importantly, you'll understand how the world is changing around us because of technology!
+
+The programming language you will be learning in this tutorial is called Python. Many software engineers consider python to be a great introductory language because it's simple yet powerful.
+
+Let's begin with an example. All computer programmers learn to write this line of code when writing in a new language.
+
+Type the following line of code in the box to the right and click the "Submit" button:
+
+print 'Hello, world!'

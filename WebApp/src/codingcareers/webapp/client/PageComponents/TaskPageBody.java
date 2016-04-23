@@ -141,6 +141,7 @@ public class TaskPageBody extends PageBody {
 			console.log('code run successfully');
 		}, function(err) {
 			console.log(err);
+			$wnd.outf("==============================\nEncountered error\n");
 		});
 	}-*/;
 

@@ -23,24 +23,42 @@ public class CodingCareers implements EntryPoint {
 
   private PageBodyFactory bodyFactory = new PageBodyFactory();
 
+  private native void initSkulptLibs(String base) /*-{
+    Sk.externalLibraries = {
+      "re": {
+        path: base + 're.js'
+      }
+    };
+  }-*/;
+
   /**
    * This is the entry point method.
    */
+  String base = GWT.getModuleBaseForStaticFiles();
   public void onModuleLoad() {
-    ScriptInjector.fromUrl(GWT.getModuleBaseForStaticFiles() +
+    ScriptInjector.fromUrl(base +
         "skulpt.min.js").setCallback(new Callback() {
       public void onFailure(Object reason) {
         Window.alert("Script load failed (skulpt)");
       }
       public void onSuccess(Object result) {
-        ScriptInjector.fromUrl(GWT.getModuleBaseForStaticFiles() +
+        ScriptInjector.fromUrl(base +
             "skulpt-stdlib.js").setCallback(new Callback() {
           public void onFailure(Object reason) {
             Window.alert("Script load failed (skulpt lib)");
           }
           public void onSuccess(Object result) {
-              Controller controller = Controller.getInstance();
-              controller.loadPage(Constants.ABOUT_PAGE);
+            ScriptInjector.fromUrl(base +
+                "re.js").setCallback(new Callback() {
+              public void onFailure(Object reason) {
+                Window.alert("Script load failed (re)");
+              }
+              public void onSuccess(Object result) {
+                initSkulptLibs(base);
+                Controller controller = Controller.getInstance();
+                controller.loadPage(Constants.ABOUT_PAGE);
+              }
+            }).inject();
           }
         }).inject();
       }

@@ -1,0 +1,33 @@
+Welcome to Coding Careers Lesson 1: Healthcare through code!
+
+Let's take a scenario I am sure you all encounter every year. It's mid-January and your mom is having you take an Emercen-C everyday because the flu is going around.  Needless to say, many of your classmates end up going to the doctor's office where they will have their temperatures checked and their symptoms recorded. It is crowded and hectic and you want to minimize the amount of time spent at the doctors. We want you to create a quick checklist that the doctors will go through and be able to enter in symptoms in order to properly diagnose the patient.  For example, the program we create will ask what the patients name is, whether they have a fever, cough, and any other symptoms.
+
+Sounds complicated right? No, it's not! We are going to walk you through the next few steps showing you all the tools you'll need to write this program.
+
+Lesson 1.1
+
+Variables:
+
+When you think back to your math classes, the word variable will probably look familiar.
+
+Solve for the variable x when 13 = 6-x
+
+    X = 7
+
+X is a variable and in coding variables are used in a very similar way. A variable is something that you want the computer to remember while your program is running. Just like in math, we create variables by using a word or a letter followed by an equals signs and then the number or word.
+
+Creating a number variable is the same as above:
+
+    X = 7
+
+Creating a word or a sentence variable is similar, we just add quotes around the word(s).
+
+    Name = "My name is Lauren"
+    Age = 22
+    print(name)
+
+Executing the above program gives the output:
+
+    My name is Lauren
+
+Now create two variables: one number with the current year named 'year' and one word with the current month named 'month'. Print both in that order.
