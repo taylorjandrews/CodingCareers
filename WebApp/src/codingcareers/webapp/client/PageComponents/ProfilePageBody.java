@@ -74,7 +74,13 @@ public class ProfilePageBody extends PageBody {
         if (currUser == null) {
             return 0;
         } else {
-            return currUser.getTaskTotalCompletion(task);
+            int toReturn = 0;
+            try {
+                toReturn = currUser.getTaskTotalCompletion(task);
+            } catch (NullPointerException e) {
+                toReturn = 0;
+            }
+            return toReturn;
         }
     }
 

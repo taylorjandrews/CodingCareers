@@ -1,6 +1,7 @@
 package codingcareers.webapp.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import codingcareers.webapp.client.PageComponents.*;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -8,6 +9,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.core.java.lang.StackTraceElement_CustomFieldSerializer;
 
 public class Controller {
     // TODO Decide on static data or singleton, both makes no sense
@@ -78,9 +80,12 @@ public class Controller {
 		try {
 			content = bodyFactory.buildPageBody(pageType);
 		} catch(InvalidPageException e) {
-			System.out.println("Exception thrown:" + e);
+			log(e.toString());
 			return;
-		}
+		} catch (Exception e) {
+            log(e.toString());
+            return;
+        }
 
         // Add to history. If TASK_PAGE then it should be added by loadTaskPage.
         if (!pageType.equals(Constants.TASK_PAGE)) {
@@ -121,6 +126,10 @@ public class Controller {
         String sessionID = currentUser.getSession_id();
         if(sessionID == User.INVALID_VALUE)
             return;
+
+        if (testsPassed == testsTotal) {
+            currentUser.updateTaskComplete(lastTaskPage);
+        }
 
         Model.updateProgress(lastTaskPage, sessionID, testsPassed, testsTotal,
                 new AsyncCallback<String>() {
@@ -197,7 +206,8 @@ public class Controller {
         String userID = getJSONVal(result, "user_id");
         String username = getJSONVal(result, "username");
         String sessionID = getJSONVal(result, "session_id");
-        currentUser = new User(userID, username, sessionID);
+        String taskList = getJSONVal(result, "task_list");
+        currentUser = new User(userID, username, sessionID, taskList);
         PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
         loadPage(Constants.PROFILE_PAGE);
     }

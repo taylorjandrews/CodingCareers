@@ -14,11 +14,6 @@ public class Model {
         rpc.invokeServer(val, callback);
     }
 
-    public static void lookupUser(String user_id,
-            AsyncCallback<String> callback) {
-        rpc.invokeServer(Constants.LOOKUP_USER + "-" + user_id, callback);
-    }
-
     public static void loginUser(String uname, String pwd,
             AsyncCallback<String> callback) {
         rpc.invokeServer(Constants.LOGIN_USER + "-" + uname + " " + pwd, callback);

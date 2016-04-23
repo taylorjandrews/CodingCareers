@@ -7,6 +7,7 @@ import java.lang.Exception;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.UUID;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
@@ -86,12 +87,14 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
                 String sessionID = UUID.randomUUID().toString();
                 updateUserSessionID(sessionID, args[USERNAME_INDEX]);
                 obj.put("session_id", sessionID);
+                obj.put("task_list", lookupUserProgress(userID));
                 return obj.toString();
             }
         } catch (NullPointerException | SQLException e) {
             throw new Exception("Error with SQL statement.");
         }
         throw new InvalidCredentialsException("Invalid user credentials.");
+        // Look up the tasks the user has completed
     }
 
     private String createUser(String credentials) throws Exception {
@@ -159,6 +162,25 @@ public class RPCImpl extends RemoteServiceServlet implements RPC {
         } catch (SQLException e) {
             return "Failure";
         }
+    }
+
+    private String lookupUserProgress(String userId) throws Exception {
+        String cmd = "SELECT task_id FROM TaskProgress WHERE user_id = " + userId + " AND tests_passed = tests_total;";
+        String results = "";
+        try {
+            ResultSet rs = query(cmd);
+            if (rs.first()) {
+                do {
+                    results += Integer.toString(rs.getInt(1)) + ", ";
+                } while (rs.next());
+            }
+
+        } catch (NullPointerException | SQLException e) {
+            throw new Exception("Error with SQL statement." + cmd + "   " + userId);
+        } catch (Exception e) {
+            throw new Exception("The exception was here!!!");
+        }
+        return results;
     }
 
     public String invokeServer(String cmd) throws Exception {

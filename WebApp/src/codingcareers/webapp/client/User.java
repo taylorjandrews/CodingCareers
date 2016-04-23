@@ -1,5 +1,6 @@
 package codingcareers.webapp.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -14,10 +15,11 @@ public class User {
 
     public final static String INVALID_VALUE = "not_valid";
 
-    public User(String user_id, String username, String session_id) {
+    public User(String user_id, String username, String session_id, String taskList) {
         this.user_id = user_id;
         this.username = username;
         this.session_id = session_id;
+        parseInTasks(taskList);
         loggedIn = true;
     }
 
@@ -55,37 +57,61 @@ public class User {
     }
 
     // Lazy loading so if we haven't looked it up yet it will be looked up now
-    public int[] getTaskBitVector(String taskName) {
-        if (taskProgress == null) {
-            taskProgress = loadInTaskProgress();
+    public int[] getTaskBitVector(String taskName) throws NullPointerException {
+        int[] toReturn;
+        try {
+            toReturn = taskProgress.get(taskName);
+        } catch (NullPointerException e) {
+            Controller.log("Task progress not updated in time!");
+            throw e;
         }
-        return taskProgress.get(taskName);
+        return toReturn;
 
     }
 
-    public void updateTaskComplete(String taskName, int bitMapIndex) {
-        // If taskProgress has not been loaded in we don't need to do anything since there should be an update
-        // to the db already
-        if (taskProgress == null) {
-            return;
-        } else {
-            int[] bitMap = getTaskBitVector(taskName);
-            bitMap[bitMapIndex] = 1;
-            taskProgress.put(taskName, bitMap);
-        }
+    public void updateTaskComplete(int taskId) {
+        String taskName = taskIdToTaskSubject(taskId);
+        int[] bitMap = taskProgress.get(taskName);
+        bitMap[(taskId - 1) % (Constants.TOTAL_LESSONS_IN_SUBJECT )] = 1;
+        Controller.log(taskName + ", " + Integer.toString((taskId - 1) % (Constants.TOTAL_LESSONS_IN_SUBJECT + 1)));
+        taskProgress.put(taskName, bitMap);
     }
 
-    private HashMap<String, int[]> loadInTaskProgress() {
-        HashMap<String, int[]> initialized = new HashMap<>();
+    private void parseInTasks(String taskList) {
+        // Here args is assumed to be a comma separated string of task ids
+        String[] splitArgs = taskList.split(", ");
+        ArrayList<Integer> testIds = new ArrayList<Integer>();
+        for (String id : splitArgs) {
+            try {
+                testIds.add(Integer.parseInt(id));
+            } catch (NumberFormatException e) {
+                continue;
+            }
+        }
+        taskProgress = new HashMap<>();
+
+        // Fill taskProgress with blank bit maps
         for (String task : Constants.TASK_SUBJECTS) {
             int[] bitMap = new int[Constants.TOTAL_LESSONS_IN_SUBJECT];
             for (int i = 0; i < Constants.TOTAL_LESSONS_IN_SUBJECT; i++) {
                 bitMap[i] = 0;
             }
-            initialized.put(task, bitMap);
+            taskProgress.put(task, bitMap);
         }
-        // TODO: Load in information from database
-        return initialized;
+
+        for (Integer id : testIds) {
+            updateTaskComplete(id);
+        }
+    }
+
+    private String taskIdToTaskSubject(int taskId) {
+        int nameIndex = (taskId - 1)/Constants.TOTAL_LESSONS_IN_SUBJECT;
+        if (nameIndex < 0) {
+            nameIndex = 0;
+        } else if (nameIndex >= Constants.TASK_SUBJECTS.length) {
+            nameIndex = Constants.TASK_SUBJECTS.length - 1;
+        }
+        return Constants.TASK_SUBJECTS[nameIndex];
     }
 
     public void logout() {
