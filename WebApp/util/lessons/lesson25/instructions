@@ -1,1 +1,1 @@
-def foo
+Write a function called 'f' that takes one integer parameter n and returns the nth number in the fibonacci sequence starting from 0.

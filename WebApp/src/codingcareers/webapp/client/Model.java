@@ -14,11 +14,6 @@ public class Model {
         rpc.invokeServer(val, callback);
     }
 
-    public static void lookupUser(String user_id,
-            AsyncCallback<String> callback) {
-        rpc.invokeServer(Constants.LOOKUP_USER + "-" + user_id, callback);
-    }
-
     public static void loginUser(String uname, String pwd,
             AsyncCallback<String> callback) {
         rpc.invokeServer(Constants.LOGIN_USER + "-" + uname + " " + pwd, callback);
@@ -34,9 +29,12 @@ public class Model {
         rpc.invokeServer(Constants.CREATE_USER + "-" + uname + " " + pwd, callback);
     }
 
-    public static void updateProgress(String progress,
-            AsyncCallback<String> callback) {
-        rpc.invokeServer(Constants.UPDATE_PROGRESS + "-" + progress, callback);
+    public static void updateProgress(int taskID, String sessionID,
+            int testsPassed, int testsTotal, AsyncCallback<String> callback) {
+        rpc.invokeServer(Constants.UPDATE_PROGRESS + "-" +
+                String.valueOf(taskID) + " " + sessionID + " " +
+                String.valueOf(testsPassed) + " " +
+                String.valueOf(testsTotal), callback);
     }
 
     public static void lookupTaskInfo(int taskID,

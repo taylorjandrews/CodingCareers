@@ -38,11 +38,15 @@ public final class Constants {
 	public static final String PROFILE_CREATION = "profile creation";
 
 	// Model/Database constants
-	public static final String LOOKUP_USER = "model lookupuser";
+	public static final String LOOKUP_COMPLETED_TASKS = "model lookupucompletedtasks";
 	public static final String CREATE_USER = "model createuser";
 	public static final String LOGIN_USER = "model loginuser";
 	public static final String LOGOUT_USER = "model logoutuser";
 	public static final String UPDATE_PROGRESS = "model updateprogress";
 	public static final String LOOKUP_TASK_INFO = "model lookuptaskinfo";
 	public static final String SELECT_CHARACTER = "model selectcharacter";
+
+	// Task info
+	public static final String[] TASK_SUBJECTS = {"Introduction", "NASA", "The FBI", "iOS-Developer"};
+	public static final int TOTAL_LESSONS_IN_SUBJECT = 5;
 }
