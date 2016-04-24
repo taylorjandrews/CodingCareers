@@ -75,7 +75,7 @@
     margin-left: 20%;
     padding-bottom: 3px;
 }
-.loginButton{
+.createProfile{
     font-family: sans-serif;
     padding-left: 30px;
 }
@@ -148,9 +148,49 @@ li a.active {
     text-align: right;
 	
 }
+}           
+.register {
+    margin: 0 auto;
+    width: 270px;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 
+.createButton{
+	display: block;
+	  width: 150%;
+	  height: 42px;
+	  margin-top: 25px;
+	  font-size: 16px;
+	  font-weight: bold;
+	  color: #494d59;
+	  text-align: center;
+	  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+	  background: #fcfcfc;
+	  border: 1px solid;
+	  border-color: #d8d8d8 #d1d1d1 #c3c3c3;
+	  border-radius: 2px;
+	}
+	 
+
+.registerBody{
+	margin: 0 auto;
+	margin: 0 auto;
+ padding: 20px;
+	 border:1px;
+  border-radius: 6px;
+		  height: 257px;
+ 	 margin: 20px auto 0;	 	 width: 298px;
+	  
+}
+.loginMessage{
+	padding-left:20px;
+		
+}
 
 .login {
   background: #eceeee;
@@ -214,4 +254,12 @@ input[type="password"]:focus, input[type="text"]:focus {
   padding: 1rem;
   background-color: #efefef;
   text-align: center;
+}
+
+.createbackground{
+	background-image:url(../images/codingpic.jpg);
+	background-size: cover;
+	width:450px;
+	height:400px;
+	
 }

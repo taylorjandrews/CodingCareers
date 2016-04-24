@@ -30,14 +30,16 @@ public class ProfileCreationBody extends PageBody {
         passwordBox = new PasswordTextBox();
         passwordBox.setText("password");
         add(passwordBox, DockPanel.CENTER);
-
-        addStyleName("login");
+        addStyleName("registerBody");
+       
         createButton = new Button();
         createButton.setText("Create");
+         createButton.addStyleName("createButton");
 
-        addStyleName("loginButton");
         add(createButton, DockPanel.EAST);
         addStyleName("show-password");
+        
+        addStyleName("createbackground");
 
         attachHandlers();
 
