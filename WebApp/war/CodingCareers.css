@@ -159,23 +159,36 @@ li a.active {
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-
 .createButton{
-	display: block;
-	  width: 150%;
-	  height: 42px;
-	  margin-top: 25px;
-	  font-size: 16px;
-	  font-weight: bold;
-	  color: #494d59;
-	  text-align: center;
-	  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
-	  background: #fcfcfc;
-	  border: 1px solid;
-	  border-color: #d8d8d8 #d1d1d1 #c3c3c3;
-	  border-radius: 2px;
-	}
-	 
+    display: block;
+    margin-left:40px !important;
+    margin-right:40px !important;
+    margin-bottom:40px !important;
+      width: 75% !important;
+      height: 110% !important;
+      margin-top: 25px !important;
+      font-size: 16px;
+      font-weight: bold;
+      color: #494d59;
+      text-align: center;
+      text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+      background: #fcfcfc;
+      border: 1px solid;
+      border-color: #d8d8d8 #d1d1d1 #c3c3c3;
+      border-radius: 2px;
+    }
+.registerUsername {
+    margin-left:40px !important;
+    margin-right:40px !important;
+    width:100%;
+    height:100%;
+}
+.registerPassword {
+    margin-left:40px !important;
+    margin-right:40px !important;
+    width:100%;
+    height:100%;
+}
 
 .registerBody{
 	margin: 0 auto;
@@ -259,7 +272,6 @@ input[type="password"]:focus, input[type="text"]:focus {
 .createbackground{
 	background-image:url(../images/codingpic.jpg);
 	background-size: cover;
-	width:450px;
-	height:400px;
-	
+	width:100%;
+	height:100%;
 }

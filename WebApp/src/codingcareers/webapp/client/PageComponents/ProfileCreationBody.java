@@ -17,6 +17,7 @@ public class ProfileCreationBody extends PageBody {
     private Button createButton;
 
     public ProfileCreationBody() {
+        VerticalPanel vp = new VerticalPanel();
 
         Label loginMessage = new Label();
         loginMessage.setText("Create an Account");
@@ -25,21 +26,30 @@ public class ProfileCreationBody extends PageBody {
 
         usernameBox = new TextBox();
         usernameBox.setText("Username");
-        add(usernameBox, DockPanel.NORTH);
+        usernameBox.addStyleName("registerUsername");
+        //add(usernameBox, DockPanel.NORTH);
+        vp.add(usernameBox);
 
         passwordBox = new PasswordTextBox();
         passwordBox.setText("password");
-        add(passwordBox, DockPanel.CENTER);
+        passwordBox.addStyleName("registerPassword");
+        vp.add(passwordBox);
+        //add(passwordBox, DockPanel.CENTER);
         addStyleName("registerBody");
        
         createButton = new Button();
-        createButton.setText("Create");
-         createButton.addStyleName("createButton");
+        createButton.setText("Create Account");
+        createButton.addStyleName("createButton");
+        vp.add(createButton);
 
-        add(createButton, DockPanel.EAST);
+        vp.addStyleName("createbackground");
+
+        add(vp, DockPanel.CENTER);
+
+        //add(createButton, DockPanel.EAST);
         addStyleName("show-password");
         
-        addStyleName("createbackground");
+        //addStyleName("createbackground");
 
         attachHandlers();
 
