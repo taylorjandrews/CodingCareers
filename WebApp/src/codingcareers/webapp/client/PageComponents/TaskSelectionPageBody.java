@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class TaskSelectionPageBody extends PageBody{
 
-    private int titleNumber = 4;
+    private int titleNumber = 5;
 
     private int lessonNumber = 20;
     private ArrayList<PushButton> pbs;
@@ -48,8 +48,9 @@ public class TaskSelectionPageBody extends PageBody{
         for(int i = 1; i < titleNumber+1; i++){
             for(int j = 1; j < 6; j++){
                 Image image = genImage("images/lessonpictures/"+Integer.toString(i) +"."+Integer.toString(j)+".png");
+                image.addStyleName("task-image");
                 PushButton pb = new PushButton(image);
-                pb.setPixelSize(100,100);
+                pb.setPixelSize(191,100);
                 pbs.add(pb);
             }
         }

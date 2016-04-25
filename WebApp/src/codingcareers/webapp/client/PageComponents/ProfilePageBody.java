@@ -33,10 +33,14 @@ public class ProfilePageBody extends PageBody {
 		VerticalPanel infoPanel = new VerticalPanel();
 		usernameTitle = new Label();
         usernameTitle.setText(USERNAME_FIELD + user.getUsername());
+        usernameTitle.addStyleName("profile-username");
+
 		infoPanel.add(usernameTitle);
 		ranking = new Label();
         ranking.setText(RANK_FIELD + getRank());
+        ranking.addStyleName("profile-rank");
         infoPanel.add(ranking);
+
         topPanel.add(infoPanel, DockPanel.EAST);
         add(topPanel, DockPanel.NORTH);
 

@@ -260,13 +260,17 @@ input[type="password"]:focus, input[type="text"]:focus {
   
 	background-image:url(../images/codingpic.jpg);
 	background-size: cover;
-	width:450px;
-	height:400px;
+    height: 60vh;
+    width: 55vw;
+    margin: 0px;
+    padding-left: 40vw;
+    padding-top: 20vh;
+
 }
 .footer{
 }
 .footText{
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
@@ -301,3 +305,27 @@ input[type="password"]:focus, input[type="text"]:focus {
     padding:10px;
 }
 
+progress {
+    margin-bottom: 30px;
+    width: 70vw;
+}
+
+.task-subject-header {
+    font-size: 20px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.profile-username {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.profile-rank {
+    font-size: 25px;
+    margin-bottom: 10vh;
+}
+
+.task-image {
+    margin-left: 50px;
+}

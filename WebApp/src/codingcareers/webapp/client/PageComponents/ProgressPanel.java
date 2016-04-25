@@ -19,6 +19,7 @@ public class ProgressPanel extends VerticalPanel {
     public ProgressPanel(String taskName, int taskCompletion) {
         taskLabel = new Label();
         taskLabel.setText(taskName);
+        taskLabel.addStyleName("task-subject-header");
         add(taskLabel);
 
         tasksCompleteLabel = new Label();

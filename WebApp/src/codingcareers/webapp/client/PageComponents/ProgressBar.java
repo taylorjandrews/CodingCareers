@@ -26,6 +26,7 @@ public class ProgressBar extends Widget {
         progress.setAttribute("max", Double.toString(max));
         progress.setAttribute("value", Double.toString(value));
 
+
         percentageLabel = DOM.createElement("span");
         percentage = value / max;
         percentageLabel.setInnerHTML(percentFormat.format(percentage));
