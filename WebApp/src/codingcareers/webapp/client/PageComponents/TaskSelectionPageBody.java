@@ -51,16 +51,27 @@ public class TaskSelectionPageBody extends PageBody{
                 Image image = genImage("images/lessonpictures/"+Integer.toString(i) +"."+Integer.toString(j)+".png");
                 PushButton pb = new PushButton(image);
                 pb.setPixelSize(100,100);
+                (pbs.get(0)).addClickHandler(new ClickHandler() {
+                    public void onClick(ClickEvent event) {
+                    Controller.getInstance().loadTaskPage(i+j-2);
+                    }
+                });
+
+
                 pbs.add(pb);
             }
         }
 
-        for(int i = 0; i < titleNumber; i++ ){
+
+     for(int i = 0; i < titleNumber; i++ ){
+
             hp0.add(pbs.get(i));
             hp1.add(pbs.get(i+5));
             hp2.add(pbs.get(i+10));
             hp3.add(pbs.get(i+15));
         }
+
+
         vp.add(title1);
         vp.add(hp0);
 	    vp.add(title2);
