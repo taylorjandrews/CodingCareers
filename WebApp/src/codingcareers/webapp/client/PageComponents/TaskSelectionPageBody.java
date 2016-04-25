@@ -4,25 +4,20 @@ import codingcareers.webapp.client.Constants;
 import codingcareers.webapp.client.Controller;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.core.client.GWT;
 
 import java.util.ArrayList;
 
 public class TaskSelectionPageBody extends PageBody{
 
     private int titleNumber = 5;
-
     private int lessonNumber = 20;
+
     private ArrayList<PushButton> pbs;
 
 	public TaskSelectionPageBody() {
@@ -45,6 +40,8 @@ public class TaskSelectionPageBody extends PageBody{
         title3.addStyleName("lessonTitle");
         title4.addStyleName("lessonTitle");
 
+
+        //load the images to the pushbuttons
         for(int i = 1; i < titleNumber+1; i++){
             for(int j = 1; j < 6; j++){
                 Image image = genImage("images/lessonpictures/"+Integer.toString(i) +"."+Integer.toString(j)+".png");
@@ -75,22 +72,20 @@ public class TaskSelectionPageBody extends PageBody{
 
 
 		add(vp, DockPanel.NORTH);
-
-
-
 	}
+
 	//TODO - setProgress(completedTasks: ArrayList<Integer>): void
 	private void setProgress(ArrayList<Integer> completedTasks){
 		return;
 	}
-    private Image genImage(String addr){
-        Image img = new Image();
-        img.setUrl(addr);
-        img.setPixelSize(100,100);
-        return img;
 
+	private Image genImage(String addr){
+		Image img = new Image();
+		img.setUrl(addr);
+		img.setPixelSize(100,100);
+		return img;
+	}
 
-    }
 	@Override
 	public void attachHandlers() {
 		// STUB
