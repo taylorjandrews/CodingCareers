@@ -167,7 +167,7 @@ public class Controller {
                 currentUser.logout();
                 currentUser = null;
                 PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(false);
-                loadPage(Constants.LANDING_PAGE);
+                loadPage(Constants.LOGIN_PAGE);
             }
         });
     }

@@ -70,6 +70,9 @@ public class User {
     }
 
     public void updateTaskComplete(int taskId) {
+        // Since we actually are starting at 0 increase the task by 1
+        taskId++;
+
         String taskName = taskIdToTaskSubject(taskId);
         int[] bitMap = taskProgress.get(taskName);
         bitMap[(taskId - 1) % (Constants.TOTAL_LESSONS_IN_SUBJECT )] = 1;
