@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
+import com.google.gwt.user.client.ui.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,7 +19,7 @@ public class ProfilePageBody extends PageBody {
     VerticalPanel progressPanel;
     User currUser;
 
-    private final String USERNAME_FIELD = "Username: ";
+    private final String USERNAME_FIELD = "Welcome ";
     private final String RANK_FIELD = "Current Rank: ";
     private final String[] RANKINGS = {"Newbie", "Novice", "Proficient", "Expert", "Start Coder"};
 
@@ -35,12 +35,19 @@ public class ProfilePageBody extends PageBody {
         usernameTitle.setText(USERNAME_FIELD + user.getUsername());
         usernameTitle.addStyleName("profile-username");
 
+
 		infoPanel.add(usernameTitle);
 		ranking = new Label();
         ranking.setText(RANK_FIELD + getRank());
         ranking.addStyleName("profile-rank");
         infoPanel.add(ranking);
-
+        
+        Image profpic = new Image("images/codingprofilepic.jpg");
+        profpic.addStyleName("profile-image");
+        profpic.setPixelSize(180,130);
+        topPanel.add(profpic, DockPanel.WEST);
+        
+        
         topPanel.add(infoPanel, DockPanel.EAST);
         add(topPanel, DockPanel.NORTH);
 

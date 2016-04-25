@@ -317,15 +317,26 @@ progress {
 }
 
 .profile-username {
-    font-size: 30px;
+		font-family: "Comic Sans MS";
+		font-size: 30px;
     margin-bottom: 10px;
+		
 }
 
 .profile-rank {
+		font-family: "Comic Sans MS";
     font-size: 25px;
-    margin-bottom: 10vh;
+    margin-bottom: 10px;
+		
 }
 
 .task-image {
     margin-left: 50px;
+}
+
+.profle-image{
+	
+	
+	width:10px;
+	height:10px;
 }
