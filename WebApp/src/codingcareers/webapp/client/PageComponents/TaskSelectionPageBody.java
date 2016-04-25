@@ -45,30 +45,21 @@ public class TaskSelectionPageBody extends PageBody{
         title3.addStyleName("lessonTitle");
         title4.addStyleName("lessonTitle");
 
-
         for(int i = 1; i < titleNumber+1; i++){
             for(int j = 1; j < 6; j++){
                 Image image = genImage("images/lessonpictures/"+Integer.toString(i) +"."+Integer.toString(j)+".png");
                 PushButton pb = new PushButton(image);
                 pb.setPixelSize(100,100);
-                (pbs.get(0)).addClickHandler(new ClickHandler() {
-                    public void onClick(ClickEvent event) {
-                    Controller.getInstance().loadTaskPage(i+j-2);
-                    }
-                });
-
-
                 pbs.add(pb);
             }
         }
+        attachHandlers();
 
-
-     for(int i = 0; i < titleNumber; i++ ){
-
-            hp0.add(pbs.get(i));
-            hp1.add(pbs.get(i+5));
-            hp2.add(pbs.get(i+10));
-            hp3.add(pbs.get(i+15));
+        for(int ii = 0; ii < titleNumber; ii++ ){
+            hp0.add(pbs.get(ii));
+            hp1.add(pbs.get(ii+5));
+            hp2.add(pbs.get(ii+10));
+            hp3.add(pbs.get(ii+15));
         }
 
 
@@ -102,5 +93,14 @@ public class TaskSelectionPageBody extends PageBody{
 	@Override
 	public void attachHandlers() {
 		// STUB
-       	}
+        for(int index = 0; index < pbs.size(); index++){
+            final int ii = index;
+            (pbs.get(index)).addClickHandler(new ClickHandler() {
+                    public void onClick(ClickEvent event) {
+                        Controller.getInstance().loadTaskPage(ii);
+                    }
+                });
+        }
+
+    }
 }
