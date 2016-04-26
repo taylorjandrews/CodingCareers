@@ -50,12 +50,6 @@ public class BasicHeader extends PageHeader {
 		isLoggedIn = loggedIn;
 	}
 
-	@Override
-	public void setUsername(String username) {
-		// STUB
-		return;
-	}
-
     @Override
     public void attachHandlers() {
 		aboutBtn.addClickHandler(new ClickHandler() {

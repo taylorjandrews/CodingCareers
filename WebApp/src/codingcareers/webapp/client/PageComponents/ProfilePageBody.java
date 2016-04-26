@@ -13,11 +13,11 @@ import java.util.HashMap;
 
 public class ProfilePageBody extends PageBody {
 
-	Label usernameTitle;
-	Label ranking;
-    HashMap<String, ProgressPanel> progressBars;
-    VerticalPanel progressPanel;
-    User currUser;
+	private Label usernameTitle;
+    private Label ranking;
+    private HashMap<String, ProgressPanel> progressBars;
+    private VerticalPanel progressPanel;
+    private User currUser;
 
     private final String USERNAME_FIELD = "Welcome ";
     private final String RANK_FIELD = "Current Rank: ";

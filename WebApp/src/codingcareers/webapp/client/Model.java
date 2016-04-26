@@ -41,9 +41,4 @@ public class Model {
             AsyncCallback<String> callback) {
         rpc.invokeServer(Constants.LOOKUP_TASK_INFO + "-" + String.valueOf(taskID), callback);
     }
-
-    public static void selectChar(String choice,
-            AsyncCallback<String> callback) {
-        rpc.invokeServer(Constants.SELECT_CHARACTER + "-" + choice, callback);
-    }
 }

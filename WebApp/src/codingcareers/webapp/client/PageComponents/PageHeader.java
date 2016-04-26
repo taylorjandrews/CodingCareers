@@ -12,8 +12,6 @@ public abstract class PageHeader extends HorizontalPanel implements PageComponen
 		headerPanel.clear();
 		headerPanel.add(this);
     }
-	
-	//TODO + setLoginState(loggedIn: boolean): void
+
 	public abstract void setLoginState(boolean loggedIn);
-	public abstract void setUsername(String username);
 }

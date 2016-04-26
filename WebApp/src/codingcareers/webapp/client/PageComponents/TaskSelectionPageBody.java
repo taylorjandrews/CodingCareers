@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 public class TaskSelectionPageBody extends PageBody{
 
-    private int titleNumber = 5;
-    private int lessonNumber = 20;
 
     private ArrayList<PushButton> pbs;
 
@@ -42,7 +40,7 @@ public class TaskSelectionPageBody extends PageBody{
 
 
         //load the images to the pushbuttons
-        for(int i = 1; i < titleNumber+1; i++){
+        for(int i = 1; i < Constants.TASK_SUBJECTS.length + 1; i++){
             for(int j = 1; j < 6; j++){
                 Image image = genImage("images/lessonpictures/"+Integer.toString(i) +"."+Integer.toString(j)+".png");
                 image.addStyleName("task-image");
@@ -53,7 +51,7 @@ public class TaskSelectionPageBody extends PageBody{
         }
         attachHandlers();
 
-        for(int ii = 0; ii < titleNumber; ii++ ){
+        for(int ii = 0; ii < Constants.TOTAL_LESSONS_IN_SUBJECT; ii++ ){
             hp0.add(pbs.get(ii));
             hp1.add(pbs.get(ii+5));
             hp2.add(pbs.get(ii+10));
@@ -74,10 +72,6 @@ public class TaskSelectionPageBody extends PageBody{
 		add(vp, DockPanel.NORTH);
 	}
 
-	//TODO - setProgress(completedTasks: ArrayList<Integer>): void
-	private void setProgress(ArrayList<Integer> completedTasks){
-		return;
-	}
 
 	private Image genImage(String addr){
 		Image img = new Image();

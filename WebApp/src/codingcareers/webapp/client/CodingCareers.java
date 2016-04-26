@@ -21,8 +21,6 @@ public class CodingCareers implements EntryPoint {
       + "attempting to contact the server. Please check your network "
       + "connection and try again.";
 
-  private PageBodyFactory bodyFactory = new PageBodyFactory();
-
   private native void initSkulptLibs(String base) /*-{
     Sk.externalLibraries = {
       "re": {

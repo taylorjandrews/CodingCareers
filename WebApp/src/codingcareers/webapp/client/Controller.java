@@ -14,7 +14,6 @@ import com.google.gwt.user.client.rpc.core.java.lang.StackTraceElement_CustomFie
 public class Controller {
     // TODO Decide on static data or singleton, both makes no sense
     private static PageComposite view;
-    private static CodeInterpreter interpreter;
     private static PageBodyFactory bodyFactory;
     private static History history;
     private static Controller instance;
@@ -211,34 +210,5 @@ public class Controller {
         PageCompositeFlyweightFactory.getInstance().setLoggedInStatus(true);
         loadPage(Constants.PROFILE_PAGE);
     }
-	
-	//TODO: handleWidgetInput(s: String, callback: UICallback): void
-	public void handleWidgetInput(String s, UICallback callback){
-		return;
-	}
-	//TODO:handleSubmittedCode(code: String, tests: ArrayList<String>, callback:UICallback): void
-	public void handleSubmittedCode(String code, ArrayList<String> tests, UICallback callback){
-		return;
-	}
-	//TODO: handleUserCreation(uname: String, pword: String, callback:UICallback): void
-	public void handleUserCreation(String uname, String pword, UICallback callback){
-		return;
-	}
-	//TODO: handleCharSelection(choices: ArrayList<String>, callback:UICallback): void
-	public void handleCharSelection(ArrayList<String> choices, UICallback callback){
-		return;
-	}
-	//TODO: isLoggedIn(): boolean
-	public boolean isLoggedIn(){
-		return false;
-	}
-	//TODO: installHintTimer(hintCallback: UICallback, time:int):void 
-	public void installHintTimer(UICallback hintCallBack, int time){
-		return;
-	}
-	//TODO: mangeHintTimer(hintCallback:UICallback)
-	//TODO: manage or mange, potentially a typo
-	public void mangeHintTimer(UICallback hintCallback){
-		return;
-	};
+
 }
